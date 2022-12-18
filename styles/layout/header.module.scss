@@ -1,7 +1,8 @@
 @use "./../variables/" as *;
 
 .header {
-  background-color: $color-green;
   color: $color-white;
-  padding: 10px 20px;
+  :global(.ant-menu) {
+    background-color: $color-green;
+  }
 }
