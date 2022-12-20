@@ -1,6 +1,7 @@
 import { Menu } from "antd"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+import { routes } from "../../utils/routes"
 
 const Navbar = () => {
   const router = useRouter()
@@ -18,16 +19,6 @@ const Navbar = () => {
     })
   }
 
-  const routes = [
-    {
-      key: "home",
-      label: `Home`
-    },
-    {
-      key: "about",
-      label: `About`
-    }
-  ]
   return (
     <div>
       <Menu
