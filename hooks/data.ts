@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
+import { HourPrice } from "../types/elpris"
 
 export const useGetData = () => {
-  const [data, setData] = useState<any[]>()
+  const [data, setData] = useState<HourPrice[]>()
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
