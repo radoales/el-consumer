@@ -17,9 +17,14 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <div className={styles.home__currentPrice}>
-        {data && <div>{currentPrice?.toFixed(2)}dkk</div>}
-      </div>
+      {data && (
+        <div className={styles.home__currentPriceBox}>
+          <div className={styles.home__currentPriceBox__price}>
+            {currentPrice?.toFixed(2)} dkk
+          </div>
+          <div>price per kw/h</div>
+        </div>
+      )}
     </div>
   )
 }
