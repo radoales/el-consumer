@@ -2,7 +2,10 @@
 
 .home {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
   &__currentPriceBox {
     color: $color-white;
@@ -19,5 +22,8 @@
       font-weight: 500;
       font-size: 30px;
     }
+  }
+  &__form {
+    width: 20vw;
   }
 }
