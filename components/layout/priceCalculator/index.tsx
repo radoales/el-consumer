@@ -16,7 +16,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     hours: number
     price: number
   }>()
-  const [slider, setSlider] = useState<number[]>([NOW, NOW + 2])
+  const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
 
   useEffect(() => {
     if (data) {
@@ -42,9 +42,9 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           marks={marks}
           tooltip={{ open: true, formatter: (value) => `${value}:00` }}
           range={{ draggableTrack: true }}
-          defaultValue={[slider[0], 30]}
+          defaultValue={slider}
           max={23}
-          onChange={(e: number[]) => setSlider(e)}
+          onChange={(e: [number, number]) => setSlider(e)}
         />
       </div>
     </div>
