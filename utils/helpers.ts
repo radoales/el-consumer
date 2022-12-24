@@ -12,9 +12,14 @@ export const getPriceForTimeWindow = (
     .filter(
       (item) =>
         new Date(item.time_start).getHours() >= timeWindow[0] &&
-        new Date(item.time_start).getHours() <= timeWindow[1]
+        new Date(item.time_start).getHours() < timeWindow[1]
     )
     .map((item) => item.DKK_per_kWh)
 
-  return hourPrices.length ? hourPrices.reduce((prev, curr) => prev + curr) : 0
+  return {
+    hours: hourPrices.length,
+    price: hourPrices.length
+      ? hourPrices.reduce((prev, curr) => prev + curr)
+      : 0
+  }
 }

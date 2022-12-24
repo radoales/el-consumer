@@ -8,10 +8,14 @@ import { HourPrice } from "../../../types/elpris"
 
 interface PriceCalculator {
   data: HourPrice[]
+  region: string
 }
 
 const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
-  const [currentPrice, setCurrentPrice] = useState<number>()
+  const [currentPrice, setCurrentPrice] = useState<{
+    hours: number
+    price: number
+  }>()
   const [slider, setSlider] = useState<number[]>([NOW, NOW + 2])
 
   useEffect(() => {
@@ -29,9 +33,9 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     <div className={styles.priceCalculator}>
       <div className={styles.priceCalculator__currentPriceBox}>
         <div className={styles.priceCalculator__currentPriceBox__price}>
-          {currentPrice?.toFixed(2)}
+          {currentPrice?.price.toFixed(2)}
         </div>
-        <div>price for period</div>
+        <div>price for {currentPrice?.hours} hours</div>
       </div>
       <div className={styles.priceCalculator__form}>
         <Slider
