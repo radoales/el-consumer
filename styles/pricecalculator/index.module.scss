@@ -21,9 +21,15 @@
     &__price {
       font-weight: 500;
       font-size: 30px;
+      min-height: 5vh;
     }
   }
-  &__form {
+  &__slider {
     width: 40vw;
+  }
+  &__devices {
+    &__select {
+      min-width: 150px;
+    }
   }
 }

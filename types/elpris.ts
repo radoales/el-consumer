@@ -5,3 +5,9 @@ export interface HourPrice {
   time_end: string
   time_start: string
 }
+
+export interface Device {
+  id: number
+  name: string
+  consumption: number
+}

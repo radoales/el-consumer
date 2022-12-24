@@ -1,10 +1,10 @@
-import { Slider } from "antd"
+import { Select, Slider } from "antd"
 import { SliderMarks } from "antd/es/slider"
-import { useEffect, useState } from "react"
-import { NOW } from "../../../utils/constants"
+import { useCallback, useEffect, useState } from "react"
+import { DEVICES, NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
 import styles from "../../../styles/pricecalculator/index.module.scss"
-import { HourPrice } from "../../../types/elpris"
+import { Device, HourPrice } from "../../../types/elpris"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -17,6 +17,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     price: number
   }>()
   const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
+  const [device, setDevice] = useState<Device>()
 
   useEffect(() => {
     if (data) {
@@ -29,15 +30,45 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     23: "23:00",
     [Number(NOW)]: "Now"
   }
+
+  const handleSelectDevice = useCallback((id: number) => {
+    const selectedDevice = DEVICES.find((device) => device.id === id)
+
+    setDevice(selectedDevice)
+  }, [])
+
   return (
     <div className={styles.priceCalculator}>
       <div className={styles.priceCalculator__currentPriceBox}>
         <div className={styles.priceCalculator__currentPriceBox__price}>
-          {currentPrice?.price.toFixed(2)}
+          {(
+            currentPrice &&
+            device &&
+            currentPrice?.price * device?.consumption
+          )?.toFixed(2)}
         </div>
         <div>price for {currentPrice?.hours} hours</div>
       </div>
-      <div className={styles.priceCalculator__form}>
+      <div className={styles.priceCalculator__devices}>
+        <Select
+          dropdownMatchSelectWidth={false}
+          placeholder='Select a device'
+          onChange={handleSelectDevice}
+          className={styles.priceCalculator__devices__select}
+          size='large'
+          showSearch
+          filterOption={(input, option) =>
+            (option?.label?.toString() ?? "").toLowerCase().includes(input)
+          }
+        >
+          {DEVICES.map((device, index) => (
+            <Select.Option key={index} label={device.name} value={device.id}>
+              {device.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
+      <div className={styles.priceCalculator__slider}>
         <Slider
           marks={marks}
           tooltip={{ open: true, formatter: (value) => `${value}:00` }}
