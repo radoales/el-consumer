@@ -3,7 +3,7 @@ export interface HourPrice {
   EUR_per_kWh: number
   EXR: number
   time_end: string
-  time_start: string
+  time_start: number
 }
 
 export interface Device {

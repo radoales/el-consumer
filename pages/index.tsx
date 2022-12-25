@@ -7,6 +7,7 @@ import { useState } from "react"
 export default function Home() {
   const [region, setRegion] = useState<string>("DK2")
   const { data } = useGetData(region)
+  console.log("data", data)
 
   return (
     <div className={styles.home}>

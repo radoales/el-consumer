@@ -1,7 +1,7 @@
 import { HourPrice } from "../types/elpris"
 
 export const getHourPrice = (data: HourPrice[], hour: number) => {
-  return data.filter((item) => new Date(item.time_start).getHours() === hour)[0]
+  return data.filter((item) => item.time_start === hour)[0]
 }
 
 export const getPriceForTimeWindow = (
@@ -11,8 +11,7 @@ export const getPriceForTimeWindow = (
   const hourPrices = data
     .filter(
       (item) =>
-        new Date(item.time_start).getHours() >= timeWindow[0] &&
-        new Date(item.time_start).getHours() < timeWindow[1]
+        item.time_start >= timeWindow[0] && item.time_start < timeWindow[1]
     )
     .map((item) => item.DKK_per_kWh)
 

@@ -27,7 +27,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   const marks: SliderMarks = {
     0: "0:00",
-    23: "23:00",
+    24: "Midnight   ",
     [Number(NOW)]: "Now"
   }
 
@@ -71,10 +71,14 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       <div className={styles.priceCalculator__slider}>
         <Slider
           marks={marks}
-          tooltip={{ open: true, formatter: (value) => `${value}:00` }}
+          tooltip={{
+            open: true,
+            formatter: (value) =>
+              value && `${value < 24 ? value : value - 24}:00`
+          }}
           range={{ draggableTrack: true }}
           defaultValue={slider}
-          max={23}
+          max={48}
           onChange={(e: [number, number]) => setSlider(e)}
         />
       </div>
