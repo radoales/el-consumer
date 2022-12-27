@@ -22,10 +22,16 @@
       font-weight: 500;
       font-size: 30px;
       min-height: 5vh;
+      span {
+        font-size: 20px;
+      }
     }
   }
   &__slider {
-    width: 40vw;
+    width: 60vw;
+    :global(.ant-slider .ant-slider-handle::after) {
+      box-shadow: 0 0 0 5px $color-green;
+    }
   }
   &__devices {
     &__select {

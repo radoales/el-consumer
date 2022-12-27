@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      {data && (
+      {data.length && (
         <div className={styles.home__calc}>
           <Radio.Group
             onChange={(e) => setRegion(e.target.value)}

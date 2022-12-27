@@ -26,8 +26,14 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   }, [data, slider])
 
   const marks: SliderMarks = {
-    0: "0:00",
-    24: "Midnight   ",
+    0: `00:00`,
+    24: {
+      style: {
+        color: "#f50"
+      },
+      label: <strong>Midnight</strong>
+    },
+    48: "00:00",
     [Number(NOW)]: "Now"
   }
 
@@ -46,6 +52,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             device &&
             currentPrice?.price * device?.consumption
           )?.toFixed(2)}
+          <span>dkk</span>
         </div>
         <div>price for {currentPrice?.hours} hours</div>
       </div>
@@ -70,9 +77,10 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       </div>
       <div className={styles.priceCalculator__slider}>
         <Slider
+          trackStyle={[{ backgroundColor: styles.color_green }]}
           marks={marks}
           tooltip={{
-            // open: true,
+            open: true,
             formatter: (value) =>
               value && `${value < 24 ? value : value - 24}:00`
           }}

@@ -5,3 +5,7 @@ $color-background: #deeaee;
 $color-white: #fff;
 $color-gray: #808080;
 $color-black: #000;
+
+:export {
+  color_green: $color-green;
+}

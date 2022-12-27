@@ -37,6 +37,7 @@ export const useGetData = (region: string) => {
             }
           })
           setData((prev) => [...prev, ...parsedData])
+          setLoading(false)
         })
       )
   }, [region])
