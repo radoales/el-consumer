@@ -72,7 +72,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         <Slider
           marks={marks}
           tooltip={{
-            open: true,
+            // open: true,
             formatter: (value) =>
               value && `${value < 24 ? value : value - 24}:00`
           }}
