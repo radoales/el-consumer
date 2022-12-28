@@ -5,6 +5,7 @@ import { DEVICES, NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
 import styles from "../../../styles/pricecalculator/index.module.scss"
 import { Device, HourPrice } from "../../../types/elpris"
+import ChartBar from "../charts/ChartBar"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -18,6 +19,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   }>()
   const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
   const [device, setDevice] = useState<Device>()
+  const [chartData, setChartData] = useState<any[]>()
 
   useEffect(() => {
     if (data) {
@@ -33,7 +35,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       },
       label: <strong>Midnight</strong>
     },
-    48: "00:00",
+    47: "23:00",
     [Number(NOW)]: "Now"
   }
 
@@ -42,6 +44,20 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
     setDevice(selectedDevice)
   }, [])
+
+  useEffect(() => {
+    if (data) {
+      setChartData(
+        data.map((item) => {
+          return {
+            name:
+              item.time_start <= 23 ? item.time_start : item.time_start - 24,
+            price: item.DKK_per_kWh
+          }
+        })
+      )
+    }
+  }, [data])
 
   return (
     <div className={styles.priceCalculator}>
@@ -86,9 +102,12 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           }}
           range={{ draggableTrack: true }}
           defaultValue={slider}
-          max={48}
+          max={47}
           onChange={(e: [number, number]) => setSlider(e)}
         />
+      </div>
+      <div className={styles.priceCalculator__graph}>
+        {chartData && <ChartBar data={chartData} />}
       </div>
     </div>
   )

@@ -20,7 +20,11 @@ export const useGetData = (region: string) => {
     )
       .then((data: HourPrice[]) => {
         const parsedData = data.map((item) => {
-          return { ...item, time_start: new Date(item.time_start).getHours() }
+          return {
+            ...item,
+            time_start: new Date(item.time_start).getHours(),
+            DKK_per_kWh: item.DKK_per_kWh * 5
+          }
         })
         setData(parsedData)
       })
@@ -31,9 +35,11 @@ export const useGetData = (region: string) => {
           }-${tomorrow.getDate()}_${region}.json`
         ).then((data: HourPrice[]) => {
           const parsedData = data.map((item) => {
+            console.log("item", item.DKK_per_kWh)
             return {
               ...item,
-              time_start: new Date(item.time_start).getHours() + 24
+              time_start: new Date(item.time_start).getHours() + 24,
+              DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
             }
           })
           setData((prev) => [...prev, ...parsedData])

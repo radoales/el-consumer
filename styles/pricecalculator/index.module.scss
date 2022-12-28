@@ -28,10 +28,15 @@
     }
   }
   &__slider {
-    width: 60vw;
+    width: 70vw;
+    padding-left: 70px;
     :global(.ant-slider .ant-slider-handle::after) {
       box-shadow: 0 0 0 5px $color-green;
     }
+  }
+  &__graph {
+    width: 70vw;
+    height: 30vh;
   }
   &__devices {
     &__select {
