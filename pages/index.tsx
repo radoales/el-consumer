@@ -1,4 +1,4 @@
-import { useGetData } from "../hooks/data"
+import { useGetPrices } from "../hooks/data"
 import styles from "../styles/home/index.module.scss"
 import PriceCalculator from "../components/layout/priceCalculator"
 import { Radio } from "antd"
@@ -6,11 +6,13 @@ import { useState } from "react"
 
 export default function Home() {
   const [region, setRegion] = useState<string>("DK2")
-  const { data } = useGetData(region)
+  const { data } = useGetPrices(region)
+
+  console.log("data", data)
 
   return (
     <div className={styles.home}>
-      {data.length && (
+      {data?.length && (
         <div className={styles.home__calc}>
           <Radio.Group
             onChange={(e) => setRegion(e.target.value)}

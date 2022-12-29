@@ -1,52 +1,45 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
 import { HourPrice } from "../types/elpris"
 import { apiRequest } from "../utils/apis"
 import { API_URL } from "../utils/constants"
 
-export const useGetData = (region: string) => {
-  const [data, setData] = useState<HourPrice[]>([])
-  const [isLoading, setLoading] = useState(false)
+export const useGetPrices = (region: string) => {
+  const today = new Date()
+  let tomorrow = new Date()
+  return useQuery(
+    ["prices", region],
+    async () => {
+      const todayPrices = await apiRequest<HourPrice[]>(
+        `${API_URL}${today.getFullYear()}/${
+          today.getMonth() + 1
+        }-${today.getDate()}_${region}.json`
+      )
 
-  useEffect(() => {
-    setLoading(true)
-    const today = new Date()
-    let tomorrow = new Date()
-    tomorrow.setDate(today.getDate() + 1)
+      const tomorowPrices = await apiRequest<HourPrice[]>(
+        `${API_URL}${tomorrow.getFullYear()}/${
+          tomorrow.getMonth() + 1
+        }-${tomorrow.getDate()}_${region}.json`
+      )
 
-    apiRequest(
-      `${API_URL}${today.getFullYear()}/${
-        today.getMonth() + 1
-      }-${today.getDate()}_${region}.json`
-    )
-      .then((data: HourPrice[]) => {
-        const parsedData = data.map((item) => {
+      const allPrices = [
+        ...todayPrices.map((item) => {
           return {
             ...item,
             time_start: new Date(item.time_start).getHours(),
-            DKK_per_kWh: item.DKK_per_kWh * 5
+            DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
+          }
+        }),
+        ...tomorowPrices.map((item) => {
+          return {
+            ...item,
+            time_start: new Date(item.time_start).getHours() + 24,
+            DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
           }
         })
-        setData(parsedData)
-      })
-      .then(() =>
-        apiRequest(
-          `${API_URL}${tomorrow.getFullYear()}/${
-            tomorrow.getMonth() + 1
-          }-${tomorrow.getDate()}_${region}.json`
-        ).then((data: HourPrice[]) => {
-          const parsedData = data.map((item) => {
-            console.log("item", item.DKK_per_kWh)
-            return {
-              ...item,
-              time_start: new Date(item.time_start).getHours() + 24,
-              DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
-            }
-          })
-          setData((prev) => [...prev, ...parsedData])
-          setLoading(false)
-        })
-      )
-  }, [region])
+      ]
 
-  return { data, isLoading }
+      return allPrices
+    },
+    {}
+  )
 }

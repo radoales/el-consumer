@@ -52,7 +52,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           return {
             name:
               item.time_start <= 23 ? item.time_start : item.time_start - 24,
-            price: item.DKK_per_kWh
+            price: item.DKK_per_kWh.toFixed(2)
           }
         })
       )
