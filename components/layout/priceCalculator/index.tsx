@@ -9,7 +9,6 @@ import ChartBar from "../charts/ChartBar"
 
 interface PriceCalculator {
   data: HourPrice[]
-  region: string
 }
 
 const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {

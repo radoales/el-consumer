@@ -3,14 +3,16 @@ import styles from "../styles/home/index.module.scss"
 import PriceCalculator from "../components/layout/priceCalculator"
 import { Radio } from "antd"
 import { useState } from "react"
+import { REGIONS } from "../utils/constants"
 
 export default function Home() {
-  const [region, setRegion] = useState<string>("DK2")
-  const { data } = useGetPrices(region)
+  const [region, setRegion] = useState<string>(REGIONS.east)
+  const { data: dataEast } = useGetPrices(REGIONS.east)
+  const { data: dataWest } = useGetPrices(REGIONS.west)
 
   return (
     <div className={styles.home}>
-      {data?.length && (
+      {dataEast?.length && dataWest?.length && (
         <div className={styles.home__calc}>
           <Radio.Group
             onChange={(e) => setRegion(e.target.value)}
@@ -18,10 +20,12 @@ export default function Home() {
             value={region}
             buttonStyle='outline'
           >
-            <Radio.Button value='DK1'>West</Radio.Button>
-            <Radio.Button value='DK2'>East</Radio.Button>
+            <Radio.Button value={REGIONS.west}>West</Radio.Button>
+            <Radio.Button value={REGIONS.east}>East</Radio.Button>
           </Radio.Group>
-          <PriceCalculator data={data} region={region} />
+          <PriceCalculator
+            data={region === REGIONS.east ? dataEast : dataWest}
+          />
         </div>
       )}
     </div>
