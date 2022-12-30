@@ -6,6 +6,7 @@ import { API_URL } from "../utils/constants"
 export const useGetPrices = (region: string) => {
   const today = new Date()
   let tomorrow = new Date()
+  tomorrow.setDate(today.getDate() + 1)
   return useQuery(
     ["prices", region],
     async () => {
@@ -40,6 +41,6 @@ export const useGetPrices = (region: string) => {
 
       return allPrices
     },
-    {}
+    { refetchOnWindowFocus: false }
   )
 }

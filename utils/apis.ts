@@ -4,7 +4,5 @@ export const apiRequest = async <T>(url: string): Promise<T> => {
     .then((data) => data)
     .catch((error) => console.log("error", error))
 
-  console.log("resp", resp)
-
   return resp
 }

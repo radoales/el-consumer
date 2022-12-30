@@ -8,8 +8,6 @@ export default function Home() {
   const [region, setRegion] = useState<string>("DK2")
   const { data } = useGetPrices(region)
 
-  console.log("data", data)
-
   return (
     <div className={styles.home}>
       {data?.length && (
@@ -17,11 +15,11 @@ export default function Home() {
           <Radio.Group
             onChange={(e) => setRegion(e.target.value)}
             size='large'
-            defaultValue='DK2'
+            value={region}
             buttonStyle='outline'
           >
-            <Radio.Button value='DK2'>West</Radio.Button>
-            <Radio.Button value='DK1'>East</Radio.Button>
+            <Radio.Button value='DK1'>West</Radio.Button>
+            <Radio.Button value='DK2'>East</Radio.Button>
           </Radio.Group>
           <PriceCalculator data={data} region={region} />
         </div>
