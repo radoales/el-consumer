@@ -1,4 +1,4 @@
-import { Select, Slider } from "antd"
+import { Radio, Select, Slider } from "antd"
 import { SliderMarks } from "antd/es/slider"
 import { useCallback, useEffect, useState } from "react"
 import { DEVICES, NOW } from "../../../utils/constants"
@@ -20,6 +20,8 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
   const [device, setDevice] = useState<Device>()
   const [chartData, setChartData] = useState<any[]>()
+  const [bestTime, setBestTime] = useState<any>()
+  const [avoidNightHours, setAvoidNightHours] = useState(false)
 
   useEffect(() => {
     if (data) {
@@ -29,7 +31,8 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   const marks: SliderMarks = {
     0: `00:00`,
-    24: {
+    23: data.length <= 24 && "23:00",
+    24: data.length > 24 && {
       style: {
         color: "#f50"
       },
@@ -40,9 +43,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   }
 
   const handleSelectDevice = useCallback((id: number) => {
-    const selectedDevice = DEVICES.find((device) => device.id === id)
-
-    setDevice(selectedDevice)
+    setDevice(DEVICES.find((device) => device.id === id))
   }, [])
 
   useEffect(() => {
@@ -56,9 +57,21 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           }
         })
       )
+      if (device) {
+        const bestTime = getBestTime(
+          data,
+          device?.averageUsageHours,
+          NOW,
+          avoidNightHours
+        )
+        setBestTime(bestTime)
+        setSlider([
+          bestTime?.startIndex ?? NOW,
+          (bestTime?.startIndex ?? NOW) + device.averageUsageHours
+        ])
+      }
     }
-    console.log("best time", getBestTime(data, 3, NOW, true))
-  }, [data])
+  }, [avoidNightHours, data, device])
 
   return (
     <div className={styles.priceCalculator}>
@@ -72,6 +85,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           <span>dkk</span>
         </div>
         <div>price for {currentPrice?.hours} hours</div>
+        <div>Best time to start: {bestTime?.startIndex}h.</div>
       </div>
       <div className={styles.priceCalculator__devices}>
         <Select
@@ -80,7 +94,6 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           onChange={handleSelectDevice}
           className={styles.priceCalculator__devices__select}
           size='large'
-          showSearch
           filterOption={(input, option) =>
             (option?.label?.toString() ?? "").toLowerCase().includes(input)
           }
@@ -92,17 +105,30 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           ))}
         </Select>
       </div>
+      <div className={styles.priceCalculator__nightHours}>
+        <span>Avoid night hours</span>
+        <Radio.Group
+          onChange={(e) => setAvoidNightHours(e.target.value)}
+          size='large'
+          value={avoidNightHours}
+          buttonStyle='outline'
+        >
+          <Radio.Button value={true}>Yes</Radio.Button>
+          <Radio.Button value={false}>No</Radio.Button>
+        </Radio.Group>
+      </div>
       <div className={styles.priceCalculator__slider}>
         <Slider
           trackStyle={[{ backgroundColor: styles.color_green }]}
           marks={marks}
           tooltip={{
+            placement: "top",
             open: true,
             formatter: (value) =>
               value && `${value < 24 ? value : value - 24}:00`
           }}
           range={{ draggableTrack: true }}
-          defaultValue={slider}
+          value={slider}
           max={data.length - 1}
           onChange={(e: [number, number]) => setSlider(e)}
         />

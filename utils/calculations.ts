@@ -31,7 +31,6 @@ export const getBestTime = (
         startIndex = i
       } else {
         if (i > 5 && i < 23 && i + usageHours < 23) {
-          console.log("i", i)
           lowestSum = currentSum
           startIndex = i
         }
