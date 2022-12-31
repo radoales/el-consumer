@@ -18,7 +18,7 @@ interface ChartBarprops {
 
 const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
   const max = data.map((item) => item.price)[0]
-  const maxHeigth = Math.ceil(Math.max(max)) + 0.5
+  const maxHeigth = Math.ceil(Math.max(max)) + 0.2
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart width={500} height={300} data={data}>

@@ -1,8 +1,8 @@
-import { useGetPrices } from "../hooks/data"
+import { useGetPrices } from "../hooks/prices"
 import styles from "../styles/home/index.module.scss"
 import PriceCalculator from "../components/layout/priceCalculator"
 import { Radio } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { REGIONS } from "../utils/constants"
 
 export default function Home() {

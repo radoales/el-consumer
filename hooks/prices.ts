@@ -22,22 +22,30 @@ export const useGetPrices = (region: string) => {
         }-${tomorrow.getDate()}_${region}.json`
       )
 
-      const allPrices = [
-        ...todayPrices.map((item) => {
-          return {
-            ...item,
-            time_start: new Date(item.time_start).getHours(),
-            DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
-          }
-        }),
-        ...tomorowPrices.map((item) => {
-          return {
-            ...item,
-            time_start: new Date(item.time_start).getHours() + 24,
-            DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
-          }
-        })
-      ]
+      const allPrices = tomorowPrices
+        ? [
+            ...todayPrices.map((item) => {
+              return {
+                ...item,
+                time_start: new Date(item.time_start).getHours(),
+                DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
+              }
+            }),
+            ...tomorowPrices.map((item) => {
+              return {
+                ...item,
+                time_start: new Date(item.time_start).getHours() + 24,
+                DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
+              }
+            })
+          ]
+        : todayPrices.map((item) => {
+            return {
+              ...item,
+              time_start: new Date(item.time_start).getHours(),
+              DKK_per_kWh: Math.abs(item.DKK_per_kWh * 5)
+            }
+          })
 
       return allPrices
     },

@@ -6,6 +6,7 @@ import { getPriceForTimeWindow } from "../../../utils/helpers"
 import styles from "../../../styles/pricecalculator/index.module.scss"
 import { Device, HourPrice } from "../../../types/elpris"
 import ChartBar from "../charts/ChartBar"
+import { getBestTime } from "../../../utils/calculations"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -56,6 +57,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         })
       )
     }
+    console.log("best time", getBestTime(data, 3, NOW, true))
   }, [data])
 
   return (
@@ -101,7 +103,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           }}
           range={{ draggableTrack: true }}
           defaultValue={slider}
-          max={47}
+          max={data.length - 1}
           onChange={(e: [number, number]) => setSlider(e)}
         />
       </div>
