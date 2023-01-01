@@ -1,25 +1,22 @@
 import { useQuery } from "@tanstack/react-query"
+import dayjs from "dayjs"
 import { HourPrice } from "../types/elpris"
 import { apiRequest } from "../utils/apis"
 import { API_URL } from "../utils/constants"
 
 export const useGetPrices = (region: string) => {
-  const today = new Date()
-  let tomorrow = new Date()
-  tomorrow.setDate(today.getDate() + 1)
+  const today = dayjs().format("YYYY/MM-DD")
+  const tomorrow = dayjs().add(1, "day").format("YYYY/MM-DD")
+
   return useQuery(
     ["prices", region],
     async () => {
       const todayPrices = await apiRequest<HourPrice[]>(
-        `${API_URL}${today.getFullYear()}/${
-          today.getMonth() + 1
-        }-${today.getDate()}_${region}.json`
+        `${API_URL}${today}_${region}.json`
       )
 
       const tomorowPrices = await apiRequest<HourPrice[]>(
-        `${API_URL}${tomorrow.getFullYear()}/${
-          tomorrow.getMonth() + 1
-        }-${tomorrow.getDate()}_${region}.json`
+        `${API_URL}${tomorrow}_${region}.json`
       )
 
       const allPrices = tomorowPrices

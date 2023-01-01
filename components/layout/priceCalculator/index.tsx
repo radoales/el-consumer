@@ -75,17 +75,41 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   return (
     <div className={styles.priceCalculator}>
-      <div className={styles.priceCalculator__currentPriceBox}>
-        <div className={styles.priceCalculator__currentPriceBox__price}>
-          {(
-            currentPrice &&
-            device &&
-            currentPrice?.price * device?.consumption
-          )?.toFixed(2)}
-          <span>dkk</span>
+      <div className={styles.priceCalculator__priceBoxes}>
+        <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
+          <div>if you start now: </div>
+          <div
+            className={
+              styles.priceCalculator__priceBoxes__currentPriceBox__price
+            }
+          >
+            {(
+              currentPrice &&
+              device &&
+              currentPrice?.price * device?.consumption
+            )?.toFixed(2)}
+            <span>dkk</span>
+          </div>
+          <div>price for {currentPrice?.hours} hours</div>
+          <div>Best time to start: {bestTime?.startIndex}h.</div>
         </div>
-        <div>price for {currentPrice?.hours} hours</div>
-        <div>Best time to start: {bestTime?.startIndex}h.</div>
+        <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
+          <div>Best time to start: </div>
+          <div
+            className={
+              styles.priceCalculator__priceBoxes__currentPriceBox__price
+            }
+          >
+            {(
+              currentPrice &&
+              device &&
+              currentPrice?.price * device?.consumption
+            )?.toFixed(2)}
+            <span>dkk</span>
+          </div>
+          <div>price for {currentPrice?.hours} hours</div>
+          <div>Best time to start: {bestTime?.startIndex}h.</div>
+        </div>
       </div>
       <div className={styles.priceCalculator__devices}>
         <Select
