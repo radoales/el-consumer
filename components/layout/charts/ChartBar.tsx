@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Cell
 } from "recharts"
@@ -17,8 +16,8 @@ interface ChartBarprops {
 }
 
 const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
-  const max = data.map((item) => item.price)[0]
-  const maxHeigth = Math.ceil(Math.max(max)) + 0.2
+  const prices = data.map((item) => Number(item.price))
+  const maxHeigth = Math.ceil(Math.max(...prices))
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart width={500} height={300} data={data}>
@@ -26,15 +25,15 @@ const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
         <XAxis dataKey='name' />
         <YAxis domain={[0, maxHeigth]} />
         <Tooltip />
-        {/* <Legend /> */}
         <Bar dataKey='price'>
           {data.map((item, index) => (
             <Cell
               key={`cell-${index}`}
               fill={
-                item.price < 0.7
+                item.price < maxHeigth * 0.33
                   ? styles.color_green
-                  : item.price > 0.7 && item.price < 1
+                  : item.price > maxHeigth * 0.33 &&
+                    item.price < maxHeigth * 0.75
                   ? styles.color_yellow
                   : styles.color_orange
               }

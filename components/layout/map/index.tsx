@@ -6,13 +6,11 @@ import { REGIONS } from "../../../utils/constants"
 interface DenmarkProps {
   selectedRegion?: REGIONS
   onChange: (value: REGIONS) => void
-  scroll: boolean
 }
 
 const Denmark: React.FC<DenmarkProps> = ({
   selectedRegion = REGIONS.west,
-  onChange,
-  scroll
+  onChange
 }) => {
   return (
     <div className={styles.map}>

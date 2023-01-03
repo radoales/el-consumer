@@ -1,6 +1,7 @@
 import { useGetPrices } from "../hooks/prices"
 import styles from "../styles/home/index.module.scss"
 import PriceCalculator from "../components/layout/priceCalculator"
+import { Radio } from "antd"
 import { useEffect, useState } from "react"
 import { REGIONS } from "../utils/constants"
 import Denmark from "../components/layout/map"
@@ -10,20 +11,9 @@ export default function Home() {
   const { data: dataEast } = useGetPrices(REGIONS.east)
   const { data: dataWest } = useGetPrices(REGIONS.west)
 
-  const [scroll, setScroll] = useState(false)
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setScroll(window.scrollY > 150)
-    })
-  }, [])
-
   return (
     <div className={styles.home}>
-      <Denmark
-        scroll={scroll}
-        selectedRegion={region}
-        onChange={(value) => setRegion(value)}
-      />
+      <Denmark selectedRegion={region} onChange={(value) => setRegion(value)} />
       {dataEast?.length && dataWest?.length && (
         <div className={styles.home__calc}>
           <PriceCalculator
