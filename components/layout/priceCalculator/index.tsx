@@ -24,9 +24,12 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
   const [device, setDevice] = useState<Device>()
   const [chartData, setChartData] = useState<any[]>()
-  const [bestTime, setBestTime] = useState<any>()
+  const [bestTime, setBestTime] = useState<{
+    lowestSum: number
+    startIndex: number
+  } | null>()
   const [avoidNightHours, setAvoidNightHours] = useState(false)
-  const [includeTomorrow, setincludeTomorrow] = useState(false)
+  const [includeTomorrow, setincludeTomorrow] = useState(true)
 
   useEffect(() => {
     if (data) {
@@ -64,8 +67,9 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   useEffect(() => {
     if (data) {
+      const dataArr = includeTomorrow ? data : data.slice(24)
       setChartData(
-        data.map((item) => {
+        dataArr.map((item) => {
           return {
             name:
               item.time_start <= 23 ? item.time_start : item.time_start - 24,
@@ -89,46 +93,54 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   return (
     <div className={styles.priceCalculator}>
-      <div className={styles.priceCalculator__priceBoxes}>
-        <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
-          <div>if you start now: </div>
-          <div
-            className={
-              styles.priceCalculator__priceBoxes__currentPriceBox__price
-            }
-          >
-            {(
-              currentPrice &&
-              device &&
-              currentPrice?.price * device?.consumption
-            )?.toFixed(2)}
-            <span>dkk</span>
+      {device && (
+        <div className={styles.priceCalculator__priceBoxes}>
+          <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
+            <div>if you start now: </div>
+            <div
+              className={
+                styles.priceCalculator__priceBoxes__currentPriceBox__price
+              }
+            >
+              {(
+                currentPrice &&
+                device &&
+                currentPrice?.price * device?.consumption
+              )?.toFixed(2)}
+              <span>dkk</span>
+            </div>
+            <div>price for {currentPrice?.hours} hours</div>
           </div>
-          <div>price for {currentPrice?.hours} hours</div>
+          {bestTime?.startIndex && bestTime.startIndex !== 0 ? (
+            <div
+              className={styles.priceCalculator__priceBoxes__currentPriceBox}
+            >
+              <div>Best time to start: </div>
+              <div
+                className={
+                  styles.priceCalculator__priceBoxes__currentPriceBox__price
+                }
+              >
+                {(
+                  bestPrice &&
+                  device &&
+                  bestPrice?.price * device?.consumption
+                )?.toFixed(2)}
+                <span>dkk</span>
+              </div>
+              <div>price for {bestPrice?.hours} hours</div>
+              <div>
+                Best time to start:{" "}
+                {bestTime?.startIndex < 24
+                  ? `${bestTime?.startIndex}h.`
+                  : `${bestTime?.startIndex - 24}h. tomorrow`}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
-        <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
-          <div>Best time to start: </div>
-          <div
-            className={
-              styles.priceCalculator__priceBoxes__currentPriceBox__price
-            }
-          >
-            {(
-              bestPrice &&
-              device &&
-              bestPrice?.price * device?.consumption
-            )?.toFixed(2)}
-            <span>dkk</span>
-          </div>
-          <div>price for {bestPrice?.hours} hours</div>
-          <div>
-            Best time to start:{" "}
-            {bestTime?.startIndex < 24
-              ? `${bestTime?.startIndex}h.`
-              : `${bestTime?.startIndex - 24}h. tomorrow`}
-          </div>
-        </div>
-      </div>
+      )}
       <div className={styles.priceCalculator__devices}>
         <Select
           dropdownMatchSelectWidth={false}

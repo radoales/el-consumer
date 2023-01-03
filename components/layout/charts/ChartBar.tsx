@@ -17,13 +17,13 @@ interface ChartBarprops {
 
 const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
   const prices = data.map((item) => Number(item.price))
-  const maxHeigth = Math.ceil(Math.max(...prices))
+  const maxHeigth = Math.max(...prices)
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart width={500} height={300} data={data}>
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='name' />
-        <YAxis domain={[0, maxHeigth]} />
+        <YAxis domain={[0, Math.ceil(maxHeigth)]} />
         <Tooltip />
         <Bar dataKey='price'>
           {data.map((item, index) => (
