@@ -91,6 +91,9 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     }
   }, [avoidNightHours, data, device, includeTomorrow])
 
+  console.log("currentPrice.price", currentPrice?.price)
+  console.log("currentPrice.price", bestPrice?.price)
+
   return (
     <div className={styles.priceCalculator}>
       {device && (
@@ -115,7 +118,12 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             <div
               className={styles.priceCalculator__priceBoxes__currentPriceBox}
             >
-              <div>Best time to start: </div>
+              <div>
+                Best time to start:{" "}
+                {bestTime?.startIndex < 24
+                  ? `${bestTime?.startIndex}h.`
+                  : `${bestTime?.startIndex - 24}h. tomorrow`}
+              </div>
               <div
                 className={
                   styles.priceCalculator__priceBoxes__currentPriceBox__price
@@ -129,12 +137,31 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
                 <span>dkk</span>
               </div>
               <div>price for {bestPrice?.hours} hours</div>
-              <div>
-                Best time to start:{" "}
-                {bestTime?.startIndex < 24
-                  ? `${bestTime?.startIndex}h.`
-                  : `${bestTime?.startIndex - 24}h. tomorrow`}
-              </div>
+              {currentPrice?.price && bestPrice?.price && (
+                <>
+                  <div
+                    className={
+                      styles.priceCalculator__priceBoxes__currentPriceBox__difference
+                    }
+                  >
+                    {Math.round(
+                      ((currentPrice?.price * device?.consumption -
+                        bestPrice?.price * device?.consumption) /
+                        currentPrice?.price) *
+                        100
+                    )}
+                    % cheaper
+                  </div>
+                  <div>
+                    You save{" "}
+                    {(
+                      currentPrice?.price * device?.consumption -
+                      bestPrice?.price * device?.consumption
+                    ).toFixed(2)}{" "}
+                    dkk
+                  </div>
+                </>
+              )}
             </div>
           ) : (
             <></>
