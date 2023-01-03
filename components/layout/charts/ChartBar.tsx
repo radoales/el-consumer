@@ -33,7 +33,7 @@ const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
                 item.price < maxHeigth * 0.33
                   ? styles.color_green
                   : item.price > maxHeigth * 0.33 &&
-                    item.price < maxHeigth * 0.75
+                    item.price < maxHeigth * 0.66
                   ? styles.color_yellow
                   : styles.color_orange
               }

@@ -7,6 +7,22 @@
   align-items: center;
   gap: 3rem;
   padding: 1rem;
+  &__settings {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    &__box {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-weight: 500;
+      font-size: 20px;
+      align-items: center;
+      span {
+        text-align: center;
+      }
+    }
+  }
   &__priceBoxes {
     display: flex;
     flex-direction: row;
@@ -48,13 +64,5 @@
     &__select {
       min-width: 150px;
     }
-  }
-  &__nightHours {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-weight: 500;
-    font-size: 20px;
-    align-items: center;
   }
 }

@@ -26,6 +26,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   const [chartData, setChartData] = useState<any[]>()
   const [bestTime, setBestTime] = useState<any>()
   const [avoidNightHours, setAvoidNightHours] = useState(false)
+  const [includeTomorrow, setincludeTomorrow] = useState(false)
 
   useEffect(() => {
     if (data) {
@@ -77,13 +78,14 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           data,
           device?.averageUsageHours,
           NOW,
-          avoidNightHours
+          avoidNightHours,
+          includeTomorrow
         )
         setBestTime(bestTime)
         setSlider([NOW, NOW + device.averageUsageHours])
       }
     }
-  }, [avoidNightHours, data, device])
+  }, [avoidNightHours, data, device, includeTomorrow])
 
   return (
     <div className={styles.priceCalculator}>
@@ -122,9 +124,8 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           <div>
             Best time to start:{" "}
             {bestTime?.startIndex < 24
-              ? bestTime?.startIndex
-              : bestTime?.startIndex - 24}
-            h.
+              ? `${bestTime?.startIndex}h.`
+              : `${bestTime?.startIndex - 24}h. tomorrow`}
           </div>
         </div>
       </div>
@@ -146,17 +147,31 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           ))}
         </Select>
       </div>
-      <div className={styles.priceCalculator__nightHours}>
-        <span>Avoid night hours</span>
-        <Radio.Group
-          onChange={(e) => setAvoidNightHours(e.target.value)}
-          size='large'
-          value={avoidNightHours}
-          buttonStyle='outline'
-        >
-          <Radio.Button value={true}>Yes</Radio.Button>
-          <Radio.Button value={false}>No</Radio.Button>
-        </Radio.Group>
+      <div className={styles.priceCalculator__settings}>
+        <div className={styles.priceCalculator__settings__box}>
+          <span>Avoid night hours</span>
+          <Radio.Group
+            onChange={(e) => setAvoidNightHours(e.target.value)}
+            size='large'
+            value={avoidNightHours}
+            buttonStyle='outline'
+          >
+            <Radio.Button value={true}>Yes</Radio.Button>
+            <Radio.Button value={false}>No</Radio.Button>
+          </Radio.Group>
+        </div>
+        <div className={styles.priceCalculator__settings__box}>
+          <span>Include Tomorrow</span>
+          <Radio.Group
+            onChange={(e) => setincludeTomorrow(e.target.value)}
+            size='large'
+            value={includeTomorrow}
+            buttonStyle='outline'
+          >
+            <Radio.Button value={true}>Yes</Radio.Button>
+            <Radio.Button value={false}>No</Radio.Button>
+          </Radio.Group>
+        </div>
       </div>
       <div className={styles.priceCalculator__slider}>
         <Slider
