@@ -17,6 +17,10 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     hours: number
     price: number
   }>()
+  const [bestPrice, setBestPrice] = useState<{
+    hours: number
+    price: number
+  }>()
   const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
   const [device, setDevice] = useState<Device>()
   const [chartData, setChartData] = useState<any[]>()
@@ -28,6 +32,17 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       setCurrentPrice(getPriceForTimeWindow(data, slider))
     }
   }, [data, slider])
+
+  useEffect(() => {
+    if (bestTime && device) {
+      setBestPrice(
+        getPriceForTimeWindow(data, [
+          bestTime?.startIndex ?? NOW,
+          (bestTime?.startIndex ?? NOW) + device.averageUsageHours
+        ])
+      )
+    }
+  }, [bestTime, data, device])
 
   const marks: SliderMarks = {
     0: `00:00`,
@@ -65,10 +80,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           avoidNightHours
         )
         setBestTime(bestTime)
-        setSlider([
-          bestTime?.startIndex ?? NOW,
-          (bestTime?.startIndex ?? NOW) + device.averageUsageHours
-        ])
+        setSlider([NOW, NOW + device.averageUsageHours])
       }
     }
   }, [avoidNightHours, data, device])
@@ -91,7 +103,6 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             <span>dkk</span>
           </div>
           <div>price for {currentPrice?.hours} hours</div>
-          <div>Best time to start: {bestTime?.startIndex}h.</div>
         </div>
         <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
           <div>Best time to start: </div>
@@ -101,14 +112,20 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             }
           >
             {(
-              currentPrice &&
+              bestPrice &&
               device &&
-              currentPrice?.price * device?.consumption
+              bestPrice?.price * device?.consumption
             )?.toFixed(2)}
             <span>dkk</span>
           </div>
-          <div>price for {currentPrice?.hours} hours</div>
-          <div>Best time to start: {bestTime?.startIndex}h.</div>
+          <div>price for {bestPrice?.hours} hours</div>
+          <div>
+            Best time to start:{" "}
+            {bestTime?.startIndex < 24
+              ? bestTime?.startIndex
+              : bestTime?.startIndex - 24}
+            h.
+          </div>
         </div>
       </div>
       <div className={styles.priceCalculator__devices}>
