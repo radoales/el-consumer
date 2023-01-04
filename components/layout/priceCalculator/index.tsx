@@ -67,7 +67,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   useEffect(() => {
     if (data) {
-      const dataArr = includeTomorrow ? data : data.slice(24)
+      const dataArr = includeTomorrow ? data : data.slice(0, 24)
       setChartData(
         dataArr.map((item) => {
           return {
@@ -90,9 +90,6 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       }
     }
   }, [avoidNightHours, data, device, includeTomorrow])
-
-  console.log("currentPrice.price", currentPrice?.price)
-  console.log("currentPrice.price", bestPrice?.price)
 
   return (
     <div className={styles.priceCalculator}>

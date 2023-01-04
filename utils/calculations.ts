@@ -11,7 +11,7 @@ export const getBestTime = (
   avoidNigthHours?: boolean,
   includeTomorrow?: boolean
 ) => {
-  const dataArr = includeTomorrow ? prices : prices.slice(24)
+  const dataArr = includeTomorrow ? prices : prices.slice(0, 24)
   const arr = dataArr.map((price) => {
     return Number(price.DKK_per_kWh)
   })
