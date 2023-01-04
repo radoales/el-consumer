@@ -1,5 +1,4 @@
-import { Radio, Select, Slider } from "antd"
-import { SliderMarks } from "antd/es/slider"
+import { Radio, Select } from "antd"
 import { useCallback, useEffect, useState } from "react"
 import { DEVICES, NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
@@ -8,6 +7,7 @@ import { Device, HourPrice } from "../../../types/elpris"
 import ChartBar from "../charts/ChartBar"
 import { getBestTime } from "../../../utils/calculations"
 import TimePicker from "../timePicker"
+import PriceSection from "../../priceSection"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -81,77 +81,13 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   return (
     <div className={styles.priceCalculator}>
-      {device && (
-        <div className={styles.priceCalculator__priceBoxes}>
-          <div className={styles.priceCalculator__priceBoxes__currentPriceBox}>
-            <div>if you start now: </div>
-            <div
-              className={
-                styles.priceCalculator__priceBoxes__currentPriceBox__price
-              }
-            >
-              {(
-                currentPrice &&
-                device &&
-                currentPrice?.price * device?.consumption
-              )?.toFixed(2)}
-              <span>dkk</span>
-            </div>
-            <div>price for {currentPrice?.hours} hours</div>
-          </div>
-          {bestTime?.startIndex && bestTime.startIndex !== 0 ? (
-            <div
-              className={styles.priceCalculator__priceBoxes__currentPriceBox}
-            >
-              <div>
-                Best time to start:{" "}
-                {bestTime?.startIndex < 24
-                  ? `${bestTime?.startIndex}h.`
-                  : `${bestTime?.startIndex - 24}h. tomorrow`}
-              </div>
-              <div
-                className={
-                  styles.priceCalculator__priceBoxes__currentPriceBox__price
-                }
-              >
-                {(
-                  bestPrice &&
-                  device &&
-                  bestPrice?.price * device?.consumption
-                )?.toFixed(2)}
-                <span>dkk</span>
-              </div>
-              <div>price for {bestPrice?.hours} hours</div>
-              {currentPrice?.price && bestPrice?.price && (
-                <>
-                  <div
-                    className={
-                      styles.priceCalculator__priceBoxes__currentPriceBox__difference
-                    }
-                  >
-                    {Math.round(
-                      ((currentPrice?.price * device?.consumption -
-                        bestPrice?.price * device?.consumption) /
-                        currentPrice?.price) *
-                        100
-                    )}
-                    % cheaper
-                  </div>
-                  <div>
-                    You save{" "}
-                    {(
-                      currentPrice?.price * device?.consumption -
-                      bestPrice?.price * device?.consumption
-                    ).toFixed(2)}{" "}
-                    dkk
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
+      {device && bestPrice && bestTime && currentPrice && (
+        <PriceSection
+          bestPrice={bestPrice}
+          currentPrice={currentPrice}
+          bestTime={bestTime}
+          device={device}
+        />
       )}
       <div className={styles.priceCalculator__devices}>
         <Select

@@ -1,8 +1,7 @@
 import { useGetPrices } from "../hooks/prices"
 import styles from "../styles/home/index.module.scss"
 import PriceCalculator from "../components/layout/priceCalculator"
-import { Radio } from "antd"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { REGIONS } from "../utils/constants"
 import Denmark from "../components/layout/map"
 
