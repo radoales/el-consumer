@@ -1,9 +1,8 @@
 @use "../variables/" as *;
 
 .map {
-  display: flex;
+  @include flex(center, row);
   width: 100%;
-  justify-content: center;
   &__region {
     &.hover:hover {
       cursor: pointer;

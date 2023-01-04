@@ -1,10 +1,8 @@
 @use "./../variables/" as *;
 
 .header {
-  display: flex;
-  flex-direction: row;
+  @include flex(start, row);
   align-items: center;
-
   padding-left: 1rem;
   background-color: $color-green;
   color: $color-white;

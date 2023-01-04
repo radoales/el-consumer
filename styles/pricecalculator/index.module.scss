@@ -1,9 +1,7 @@
 @use "../variables/" as *;
 
 .priceCalculator {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @include flex(center, column);
   align-items: center;
   gap: 3rem;
   padding: 1rem;

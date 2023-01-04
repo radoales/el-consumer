@@ -20,8 +20,7 @@
   }
 
   &__calc {
-    display: flex;
-    flex-direction: column;
+    @include flex(start, column);
     align-items: center;
   }
 }
