@@ -1,0 +1,9 @@
+@use "../variables/" as *;
+
+.timePicker {
+  width: 70vw;
+  padding-left: 70px;
+  :global(.ant-slider .ant-slider-handle::after) {
+    box-shadow: 0 0 0 5px $color-green;
+  }
+}

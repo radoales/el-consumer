@@ -7,6 +7,7 @@ import styles from "../../../styles/pricecalculator/index.module.scss"
 import { Device, HourPrice } from "../../../types/elpris"
 import ChartBar from "../charts/ChartBar"
 import { getBestTime } from "../../../utils/calculations"
+import TimePicker from "../timePicker"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -47,19 +48,6 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       )
     }
   }, [bestTime, data, device])
-
-  const marks: SliderMarks = {
-    0: `00:00`,
-    23: data.length <= 24 && "23:00",
-    24: data.length > 24 && {
-      style: {
-        color: "#f50"
-      },
-      label: <strong>Midnight</strong>
-    },
-    47: "23:00",
-    [Number(NOW)]: "Now"
-  }
 
   const handleSelectDevice = useCallback((id: number) => {
     setDevice(DEVICES.find((device) => device.id === id))
@@ -209,22 +197,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           </Radio.Group>
         </div>
       </div>
-      <div className={styles.priceCalculator__slider}>
-        <Slider
-          trackStyle={[{ backgroundColor: styles.color_green }]}
-          marks={marks}
-          tooltip={{
-            placement: "top",
-            open: true,
-            formatter: (value) =>
-              value && `${value < 24 ? value : value - 24}:00`
-          }}
-          range={{ draggableTrack: true }}
-          value={slider}
-          max={data.length - 1}
-          onChange={(e: [number, number]) => setSlider(e)}
-        />
-      </div>
+      <TimePicker data={data} setSlider={setSlider} slider={slider} />
       <div className={styles.priceCalculator__graph}>
         {chartData && <ChartBar data={chartData} />}
       </div>
