@@ -90,6 +90,12 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           device={device}
         />
       )}
+      <CalculatorSettings
+        avoidNightHours={avoidNightHours}
+        setAvoidNightHours={setAvoidNightHours}
+        includeTomorrow={includeTomorrow}
+        setincludeTomorrow={setincludeTomorrow}
+      />
       <div className={styles.priceCalculator__devices}>
         <Select
           dropdownMatchSelectWidth={false}
@@ -108,12 +114,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           ))}
         </Select>
       </div>
-      <CalculatorSettings
-        avoidNightHours={avoidNightHours}
-        setAvoidNightHours={setAvoidNightHours}
-        includeTomorrow={includeTomorrow}
-        setincludeTomorrow={setincludeTomorrow}
-      />
+
       <TimePicker data={data} setSlider={setSlider} slider={slider} />
       <div className={styles.priceCalculator__graph}>
         {chartData && <ChartBar data={chartData} />}

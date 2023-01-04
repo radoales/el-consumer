@@ -11,27 +11,24 @@ interface TimePickerProps {
 }
 
 const TimePicker: React.FC<TimePickerProps> = ({ slider, setSlider, data }) => {
-  const marks: SliderMarks = {
-    0: `00:00`,
-    23: data.length <= 24 && "23:00",
-    24: data.length > 24 && {
-      style: {
-        color: "#f50"
-      },
-      label: <strong>Midnight</strong>
-    },
-    47: "23:00",
-    [Number(NOW)]: "Now"
+  const s: any = {}
+  for (let i = 0; i < 48; i++) {
+    s[i] = {
+      label: (
+        <div className={styles.label}>
+          {i === NOW ? "Now" : `${i < 24 ? i : i - 24}:00`}
+        </div>
+      )
+    }
   }
 
   return (
     <div className={styles.timePicker}>
       <Slider
         trackStyle={[{ backgroundColor: styles.color_green }]}
-        marks={marks}
+        marks={s}
         tooltip={{
           placement: "top",
-          open: true,
           formatter: (value) => value && `${value < 24 ? value : value - 24}:00`
         }}
         range={{ draggableTrack: true }}
