@@ -1,4 +1,4 @@
-import { Radio, Select } from "antd"
+import { Select } from "antd"
 import { useCallback, useEffect, useState } from "react"
 import { DEVICES, NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
@@ -8,6 +8,7 @@ import ChartBar from "../charts/ChartBar"
 import { getBestTime } from "../../../utils/calculations"
 import TimePicker from "../timePicker"
 import PriceSection from "../../priceSection"
+import CalculatorSettings from "../../calculatorSetting"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -107,32 +108,12 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           ))}
         </Select>
       </div>
-      <div className={styles.priceCalculator__settings}>
-        <div className={styles.priceCalculator__settings__box}>
-          <span>Avoid night hours</span>
-          <Radio.Group
-            onChange={(e) => setAvoidNightHours(e.target.value)}
-            size='large'
-            value={avoidNightHours}
-            buttonStyle='outline'
-          >
-            <Radio.Button value={true}>Yes</Radio.Button>
-            <Radio.Button value={false}>No</Radio.Button>
-          </Radio.Group>
-        </div>
-        <div className={styles.priceCalculator__settings__box}>
-          <span>Include Tomorrow</span>
-          <Radio.Group
-            onChange={(e) => setincludeTomorrow(e.target.value)}
-            size='large'
-            value={includeTomorrow}
-            buttonStyle='outline'
-          >
-            <Radio.Button value={true}>Yes</Radio.Button>
-            <Radio.Button value={false}>No</Radio.Button>
-          </Radio.Group>
-        </div>
-      </div>
+      <CalculatorSettings
+        avoidNightHours={avoidNightHours}
+        setAvoidNightHours={setAvoidNightHours}
+        includeTomorrow={includeTomorrow}
+        setincludeTomorrow={setincludeTomorrow}
+      />
       <TimePicker data={data} setSlider={setSlider} slider={slider} />
       <div className={styles.priceCalculator__graph}>
         {chartData && <ChartBar data={chartData} />}

@@ -7,22 +7,6 @@
   align-items: center;
   gap: 3rem;
   padding: 1rem;
-  &__settings {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    &__box {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      font-weight: 500;
-      font-size: 20px;
-      align-items: center;
-      span {
-        text-align: center;
-      }
-    }
-  }
   &__graph {
     width: 70vw;
     height: 30vh;
