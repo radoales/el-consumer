@@ -12,7 +12,7 @@ interface TimePickerProps {
 
 const TimePicker: React.FC<TimePickerProps> = ({ slider, setSlider, data }) => {
   const s: any = {}
-  for (let i = 0; i < 48; i++) {
+  for (let i = 0; i < data.length; i++) {
     s[i] = {
       label: (
         <div className={styles.label}>

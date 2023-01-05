@@ -1,11 +1,11 @@
 @use "../variables/" as *;
 
 .calculatorSettings {
-  @include flex(start, row);
+  @include flex(flex-start, row);
 
   gap: 2rem;
   &__box {
-    @include flex(start, column);
+    @include flex(flex-start, column);
     gap: 5px;
     font-weight: 500;
     font-size: 20px;
