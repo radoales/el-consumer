@@ -44,11 +44,11 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       setBestPrice(
         getPriceForTimeWindow(data, [
           bestTime?.startIndex ?? NOW,
-          (bestTime?.startIndex ?? NOW) + device.averageUsageHours
+          (bestTime?.startIndex ?? NOW) + slider[1] - slider[0]
         ])
       )
     }
-  }, [bestTime, data, device])
+  }, [bestTime, data, device, slider])
 
   const handleSelectDevice = useCallback((id: number) => {
     setDevice(DEVICES.find((device) => device.id === id))
