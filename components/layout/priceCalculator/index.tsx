@@ -115,7 +115,11 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         </Select>
       </div>
 
-      <TimePicker data={data} setSlider={setSlider} slider={slider} />
+      <TimePicker
+        data={includeTomorrow ? data : data.slice(0, 24)}
+        setSlider={setSlider}
+        slider={slider}
+      />
       <div className={styles.priceCalculator__graph}>
         {chartData && <ChartBar data={chartData} />}
       </div>

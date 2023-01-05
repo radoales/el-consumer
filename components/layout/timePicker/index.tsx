@@ -1,8 +1,10 @@
-import { Slider } from "antd"
+import { Grid, Slider } from "antd"
 import { SliderMarks } from "antd/es/slider"
 import styles from "../../../styles/timepicker/index.module.scss"
 import { HourPrice } from "../../../types/elpris"
 import { NOW } from "../../../utils/constants"
+
+const { useBreakpoint } = Grid
 
 interface TimePickerProps {
   slider: [number, number]
@@ -11,9 +13,13 @@ interface TimePickerProps {
 }
 
 const TimePicker: React.FC<TimePickerProps> = ({ slider, setSlider, data }) => {
-  const s: any = {}
+  const screen = useBreakpoint()
+  const marks: any = {}
   for (let i = 0; i < data.length; i++) {
-    s[i] = {
+    if (!screen.xl && i % 2 !== 0) {
+      continue
+    }
+    marks[i] = {
       label: (
         <div className={styles.label}>
           {i === NOW ? "Now" : `${i < 24 ? i : i - 24}:00`}
@@ -26,7 +32,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ slider, setSlider, data }) => {
     <div className={styles.timePicker}>
       <Slider
         trackStyle={[{ backgroundColor: styles.color_green }]}
-        marks={s}
+        marks={marks}
         tooltip={{
           placement: "top",
           formatter: (value) => value && `${value < 24 ? value : value - 24}:00`
