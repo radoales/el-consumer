@@ -1,6 +1,6 @@
 import { Select } from "antd"
 import { useCallback, useEffect, useState } from "react"
-import { DEVICES, NOW } from "../../../utils/constants"
+import { NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
 import styles from "../../../styles/pricecalculator/index.module.scss"
 import { Device, HourPrice } from "../../../types/elpris"
@@ -9,6 +9,7 @@ import { getBestTime } from "../../../utils/calculations"
 import TimePicker from "../timePicker"
 import PriceSection from "../../priceSection"
 import CalculatorSettings from "../../calculatorSetting"
+import { DEVICES } from "../../../utils/deviceslist"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -96,6 +97,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         includeTomorrow={includeTomorrow}
         setincludeTomorrow={setincludeTomorrow}
       />
+
       <div className={styles.priceCalculator__devices}>
         <Select
           dropdownMatchSelectWidth={false}
@@ -109,7 +111,10 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         >
           {DEVICES.map((device, index) => (
             <Select.Option key={index} label={device.name} value={device.id}>
-              {device.name}
+              <div className={styles.priceCalculator__devices__select__option}>
+                {device.icon}
+                {device.name}
+              </div>
             </Select.Option>
           ))}
         </Select>

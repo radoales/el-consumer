@@ -15,7 +15,11 @@
   }
   &__devices {
     &__select {
-      min-width: 150px;
+      min-width: 170px;
+      &__option {
+        @include flex(flex-start, row, 5px);
+        align-items: center;
+      }
     }
   }
 }
