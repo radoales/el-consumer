@@ -6,11 +6,13 @@ import { REGIONS } from "../../../utils/constants"
 interface DenmarkProps {
   selectedRegion?: REGIONS
   onChange: (value: REGIONS) => void
+  mapSize?: number
 }
 
 const Denmark: React.FC<DenmarkProps> = ({
   selectedRegion = REGIONS.west,
-  onChange
+  onChange,
+  mapSize = 150
 }) => {
   return (
     <div className={styles.map}>
@@ -21,8 +23,8 @@ const Denmark: React.FC<DenmarkProps> = ({
         }`}
       >
         <DenmarkVest
-          width={300}
-          height={300}
+          width={mapSize}
+          height={mapSize}
           fill={
             selectedRegion === REGIONS.west
               ? styles.color_green
@@ -37,8 +39,8 @@ const Denmark: React.FC<DenmarkProps> = ({
       >
         <DenmarkEast
           onClick={() => onChange(REGIONS.east)}
-          width={300}
-          height={300}
+          width={mapSize}
+          height={mapSize}
           fill={
             selectedRegion === REGIONS.east
               ? styles.color_green

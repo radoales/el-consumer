@@ -36,31 +36,33 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   const [includeTomorrow, setincludeTomorrow] = useState(true)
 
   useEffect(() => {
-    if (data) {
-      setCurrentPrice(getPriceForTimeWindow(data, slider))
-    }
-  }, [data, slider])
-
-  useEffect(() => {
     if (device) {
       setUsageHours(device.averageUsageHours)
     }
   }, [device])
 
   useEffect(() => {
-    if (bestTime && device) {
+    if (bestTime && slider && data) {
       setBestPrice(
         getPriceForTimeWindow(data, [
           bestTime?.startIndex ?? NOW,
-          (bestTime?.startIndex ?? NOW) + slider[1] - slider[0]
+          (bestTime?.startIndex ?? NOW) + (slider[1] - slider[0])
         ])
       )
+      setCurrentPrice(getPriceForTimeWindow(data, slider))
+      setUsageHours(slider[1] - slider[0])
     }
-  }, [bestTime, data, device, slider])
+  }, [bestTime, data, slider])
 
   const handleSelectDevice = useCallback((id: number) => {
     setDevice(DEVICES.find((device) => device.id === id))
   }, [])
+
+  useEffect(() => {
+    if (device) {
+      setSlider([NOW, NOW + device.averageUsageHours])
+    }
+  }, [device])
 
   useEffect(() => {
     if (data) {
@@ -83,7 +85,6 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           includeTomorrow
         )
         setBestTime(bestTime)
-        setSlider([NOW, NOW + usageHours])
       }
     }
   }, [avoidNightHours, data, device, includeTomorrow, usageHours])
@@ -106,7 +107,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       />
 
       <div className={styles.priceCalculator__devices}>
-        Using
+        {/* Using */}
         <Select
           dropdownMatchSelectWidth={false}
           placeholder='Select a device'
@@ -126,13 +127,13 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             </Select.Option>
           ))}
         </Select>
-        for
+        {/* for
         <InputNumber
           max={data.length - NOW}
           onChange={(e) => setUsageHours(e)}
           value={usageHours}
         />
-        hours
+        hours */}
       </div>
 
       <TimePicker

@@ -1,5 +1,6 @@
 import WashingMachine from "../assets/icons/washing-machine.svg"
 import Oven from "../assets/icons/oven.svg"
+import Stove from "../assets/icons/stove.svg"
 
 export const DEVICES = [
   {
@@ -22,5 +23,12 @@ export const DEVICES = [
     consumption: 2.5,
     averageUsageHours: 1,
     icon: <Oven width={25} height={25} fill='#000' />
+  },
+  {
+    id: 4,
+    name: "Stove",
+    consumption: 1.5,
+    averageUsageHours: 1,
+    icon: <Stove width={25} height={25} fill='#000' />
   }
 ]
