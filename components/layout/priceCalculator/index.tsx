@@ -1,4 +1,4 @@
-import { Select } from "antd"
+import { InputNumber, Select } from "antd"
 import { useCallback, useEffect, useState } from "react"
 import { NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
@@ -26,6 +26,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   }>()
   const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
   const [device, setDevice] = useState<Device>()
+  const [usageHours, setUsageHours] = useState<number | null>()
   const [chartData, setChartData] = useState<any[]>()
   const [bestTime, setBestTime] = useState<{
     lowestSum: number
@@ -39,6 +40,12 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       setCurrentPrice(getPriceForTimeWindow(data, slider))
     }
   }, [data, slider])
+
+  useEffect(() => {
+    if (device) {
+      setUsageHours(device.averageUsageHours)
+    }
+  }, [device])
 
   useEffect(() => {
     if (bestTime && device) {
@@ -67,19 +74,19 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           }
         })
       )
-      if (device) {
+      if (device && usageHours) {
         const bestTime = getBestTime(
           data,
-          device?.averageUsageHours,
+          usageHours,
           NOW,
           avoidNightHours,
           includeTomorrow
         )
         setBestTime(bestTime)
-        setSlider([NOW, NOW + device.averageUsageHours])
+        setSlider([NOW, NOW + usageHours])
       }
     }
-  }, [avoidNightHours, data, device, includeTomorrow])
+  }, [avoidNightHours, data, device, includeTomorrow, usageHours])
 
   return (
     <div className={styles.priceCalculator}>
@@ -118,6 +125,11 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             </Select.Option>
           ))}
         </Select>
+        <InputNumber
+          max={data.length - NOW}
+          onChange={(e) => setUsageHours(e)}
+          value={usageHours}
+        />
       </div>
 
       <TimePicker

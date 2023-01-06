@@ -14,6 +14,7 @@
     }
   }
   &__devices {
+    @include flex(center, row, 1rem);
     &__select {
       min-width: 170px;
       &__option {
