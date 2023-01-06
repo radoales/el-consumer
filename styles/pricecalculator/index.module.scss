@@ -15,6 +15,16 @@
   }
   &__devices {
     @include flex(center, row, 1rem);
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+
+    :global(.ant-input-number) {
+      @include flex(center, row);
+      align-items: center;
+      width: 50px;
+      min-height: 40px;
+    }
     &__select {
       min-width: 170px;
       &__option {

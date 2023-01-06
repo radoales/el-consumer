@@ -106,6 +106,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
       />
 
       <div className={styles.priceCalculator__devices}>
+        Using
         <Select
           dropdownMatchSelectWidth={false}
           placeholder='Select a device'
@@ -125,11 +126,13 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             </Select.Option>
           ))}
         </Select>
+        for
         <InputNumber
           max={data.length - NOW}
           onChange={(e) => setUsageHours(e)}
           value={usageHours}
         />
+        hours
       </div>
 
       <TimePicker
