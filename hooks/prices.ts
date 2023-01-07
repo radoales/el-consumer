@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import dayjs from "dayjs"
-import { HourPrice } from "../types/elpris"
+import { HourPrice } from "../types/price"
 import { apiRequest } from "../utils/apis"
 import { API_URL } from "../utils/constants"
 

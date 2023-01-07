@@ -1,3 +1,5 @@
+import { LowestConsumptionPrice } from "../types/price"
+
 export const getBestTime = (
   prices: {
     time_start: number
@@ -10,7 +12,7 @@ export const getBestTime = (
   start: number,
   avoidNigthHours?: boolean,
   includeTomorrow?: boolean
-) => {
+): LowestConsumptionPrice | null => {
   const dataArr = includeTomorrow ? prices : prices.slice(0, 24)
   const arr = dataArr.map((price) => {
     return Number(price.DKK_per_kWh)
@@ -39,5 +41,9 @@ export const getBestTime = (
       }
     }
   }
-  return { lowestSum, startIndex }
+  return {
+    amount: lowestSum,
+    startingTime: startIndex,
+    consumptionHours: usageHours
+  }
 }

@@ -1,4 +1,4 @@
-import { HourPrice } from "../types/elpris"
+import { ConsumptionPrice, HourPrice } from "../types/price"
 
 export const getHourPrice = (data: HourPrice[], hour: number) => {
   return data.filter((item) => item.time_start === hour)[0]
@@ -7,7 +7,7 @@ export const getHourPrice = (data: HourPrice[], hour: number) => {
 export const getPriceForTimeWindow = (
   data: HourPrice[],
   timeWindow: number[]
-) => {
+): ConsumptionPrice => {
   const hourPrices = data
     .filter(
       (item) =>
@@ -16,8 +16,8 @@ export const getPriceForTimeWindow = (
     .map((item) => item.DKK_per_kWh)
 
   return {
-    hours: hourPrices.length,
-    price: hourPrices.length
+    consumptionHours: hourPrices.length,
+    amount: hourPrices.length
       ? hourPrices.reduce((prev, curr) => prev + curr)
       : 0
   }

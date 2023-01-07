@@ -3,35 +3,35 @@ import { useCallback, useEffect, useState } from "react"
 import { NOW } from "../../../utils/constants"
 import { getPriceForTimeWindow } from "../../../utils/helpers"
 import styles from "../../../styles/pricecalculator/index.module.scss"
-import { Device, HourPrice } from "../../../types/elpris"
+import {
+  ConsumptionPrice,
+  HourPrice,
+  LowestConsumptionPrice
+} from "../../../types/price"
 import ChartBar from "../charts/ChartBar"
 import { getBestTime } from "../../../utils/calculations"
 import TimePicker from "../timePicker"
 import PriceSection from "../../priceSection"
 import CalculatorSettings from "../../calculatorSetting"
 import { DEVICES } from "../../../utils/deviceslist"
+import { Device } from "../../../types/device"
+import { SliderRangeProps } from "antd/es/slider"
 
 interface PriceCalculator {
   data: HourPrice[]
 }
 
 const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
-  const [currentPrice, setCurrentPrice] = useState<{
-    hours: number
-    price: number
-  }>()
-  const [bestPrice, setBestPrice] = useState<{
-    hours: number
-    price: number
-  }>()
-  const [slider, setSlider] = useState<[number, number]>([NOW, NOW + 2])
+  const [currentPrice, setCurrentPrice] = useState<ConsumptionPrice>()
+  const [bestPrice, setBestPrice] = useState<ConsumptionPrice>()
+  const [slider, setSlider] = useState<SliderRangeProps["value"]>([
+    NOW,
+    NOW + 2
+  ])
   const [device, setDevice] = useState<Device>()
   const [usageHours, setUsageHours] = useState<number | null>()
   const [chartData, setChartData] = useState<any[]>()
-  const [bestTime, setBestTime] = useState<{
-    lowestSum: number
-    startIndex: number
-  } | null>()
+  const [bestTime, setBestTime] = useState<LowestConsumptionPrice | null>()
   const [avoidNightHours, setAvoidNightHours] = useState(false)
   const [includeTomorrow, setincludeTomorrow] = useState(true)
 
@@ -45,8 +45,8 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
     if (bestTime && slider && data) {
       setBestPrice(
         getPriceForTimeWindow(data, [
-          bestTime?.startIndex ?? NOW,
-          (bestTime?.startIndex ?? NOW) + (slider[1] - slider[0])
+          bestTime?.startingTime ?? NOW,
+          (bestTime?.startingTime ?? NOW) + (slider[1] - slider[0])
         ])
       )
       setCurrentPrice(getPriceForTimeWindow(data, slider))
@@ -97,6 +97,8 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
           currentPrice={currentPrice}
           bestTime={bestTime}
           device={device}
+          // currentPrice={3}
+          // lowestPrice={2}
         />
       )}
       <CalculatorSettings
@@ -105,9 +107,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         includeTomorrow={includeTomorrow}
         setincludeTomorrow={setincludeTomorrow}
       />
-
       <div className={styles.priceCalculator__devices}>
-        {/* Using */}
         <Select
           dropdownMatchSelectWidth={false}
           placeholder='Select a device'
@@ -127,13 +127,6 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
             </Select.Option>
           ))}
         </Select>
-        {/* for
-        <InputNumber
-          max={data.length - NOW}
-          onChange={(e) => setUsageHours(e)}
-          value={usageHours}
-        />
-        hours */}
       </div>
 
       <TimePicker

@@ -1,20 +1,13 @@
 import React from "react"
 import styles from "../../styles/pricesection/index.module.scss"
-import { Device } from "../../types/elpris"
-
-interface Price {
-  hours: number
-  price: number
-}
+import { Device } from "../../types/device"
+import { ConsumptionPrice, LowestConsumptionPrice } from "../../types/price"
 
 interface PriceSectionProps {
   device: Device
-  currentPrice: Price
-  bestPrice: Price
-  bestTime: {
-    lowestSum: number
-    startIndex: number
-  }
+  currentPrice: ConsumptionPrice
+  bestPrice: ConsumptionPrice
+  bestTime: LowestConsumptionPrice
 }
 
 const PriceSection: React.FC<PriceSectionProps> = ({
@@ -31,36 +24,36 @@ const PriceSection: React.FC<PriceSectionProps> = ({
           {(
             currentPrice &&
             device &&
-            currentPrice?.price * device?.consumption
+            currentPrice?.amount * device?.consumption
           )?.toFixed(2)}
           <span>dkk</span>
         </div>
-        <div>price for {currentPrice?.hours} hours</div>
+        <div>price for {currentPrice?.consumptionHours} hours</div>
       </div>
-      {bestTime?.startIndex && bestTime.startIndex !== 0 ? (
+      {bestTime?.startingTime && bestTime?.startingTime !== 0 ? (
         <div className={styles.priceSection__box}>
           <div>
             Best time to start:{" "}
-            {bestTime?.startIndex < 24
-              ? `${bestTime?.startIndex}h.`
-              : `${bestTime?.startIndex - 24}h. tomorrow`}
+            {bestTime?.startingTime < 24
+              ? `${bestTime?.startingTime}h.`
+              : `${bestTime?.startingTime - 24}h. tomorrow`}
           </div>
           <div className={styles.priceSection__box__price}>
             {(
               bestPrice &&
               device &&
-              bestPrice?.price * device?.consumption
+              bestPrice?.amount * device?.consumption
             )?.toFixed(2)}
             <span>dkk</span>
           </div>
-          <div>price for {bestPrice?.hours} hours</div>
-          {currentPrice?.price && bestPrice?.price && (
+          <div>price for {bestPrice?.consumptionHours} hours</div>
+          {currentPrice?.amount && bestPrice?.amount && (
             <>
               <div className={styles.priceSection__box__difference}>
                 {Math.round(
-                  ((currentPrice?.price * device?.consumption -
-                    bestPrice?.price * device?.consumption) /
-                    currentPrice?.price) *
+                  ((currentPrice?.amount * device?.consumption -
+                    bestPrice?.amount * device?.consumption) /
+                    currentPrice?.amount) *
                     100
                 )}
                 % cheaper
@@ -68,8 +61,8 @@ const PriceSection: React.FC<PriceSectionProps> = ({
               <div>
                 You save{" "}
                 {(
-                  currentPrice?.price * device?.consumption -
-                  bestPrice?.price * device?.consumption
+                  currentPrice?.amount * device?.consumption -
+                  bestPrice?.amount * device?.consumption
                 ).toFixed(2)}{" "}
                 dkk
               </div>

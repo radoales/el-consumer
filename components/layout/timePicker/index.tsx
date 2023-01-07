@@ -1,14 +1,14 @@
 import { Grid, Slider } from "antd"
-import { SliderMarks } from "antd/es/slider"
+import { SliderMarks, SliderRangeProps } from "antd/es/slider"
 import styles from "../../../styles/timepicker/index.module.scss"
-import { HourPrice } from "../../../types/elpris"
+import { HourPrice } from "../../../types/price"
 import { NOW } from "../../../utils/constants"
 
 const { useBreakpoint } = Grid
 
 interface TimePickerProps {
-  slider: [number, number]
-  setSlider: (value: [number, number]) => void
+  slider: SliderRangeProps["value"]
+  setSlider: (value: SliderRangeProps["value"]) => void
   data: HourPrice[]
 }
 
@@ -40,7 +40,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ slider, setSlider, data }) => {
         range={{ draggableTrack: true }}
         value={slider}
         max={data.length - 1}
-        onChange={(e: [number, number]) => setSlider(e)}
+        onChange={(e: SliderRangeProps["value"]) => setSlider(e)}
       />
     </div>
   )
