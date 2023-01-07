@@ -31,7 +31,9 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   const [device, setDevice] = useState<Device>()
   const [usageHours, setUsageHours] = useState<number | null>()
   const [chartData, setChartData] = useState<any[]>()
-  const [bestTime, setBestTime] = useState<LowestConsumptionPrice | null>()
+  const [bestTime, setBestTime] = useState<
+    LowestConsumptionPrice | null | undefined
+  >()
   const [avoidNightHours, setAvoidNightHours] = useState(false)
   const [includeTomorrow, setincludeTomorrow] = useState(true)
 
@@ -91,16 +93,17 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
 
   return (
     <div className={styles.priceCalculator}>
-      {device && bestPrice && bestTime && currentPrice && (
-        <PriceSection
-          bestPrice={bestPrice}
-          currentPrice={currentPrice}
-          bestTime={bestTime}
-          device={device}
-          // currentPrice={3}
-          // lowestPrice={2}
-        />
-      )}
+      <PriceSection
+        bestPrice={bestPrice}
+        currentPrice={currentPrice}
+        bestTime={bestTime}
+        device={device}
+        currentPricePerKw={
+          data.find((item) => item.time_start === NOW)?.DKK_per_kWh
+        }
+        lowestPrice={2}
+      />
+
       <CalculatorSettings
         avoidNightHours={avoidNightHours}
         setAvoidNightHours={setAvoidNightHours}

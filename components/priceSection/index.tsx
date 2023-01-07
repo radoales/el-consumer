@@ -4,33 +4,51 @@ import { Device } from "../../types/device"
 import { ConsumptionPrice, LowestConsumptionPrice } from "../../types/price"
 
 interface PriceSectionProps {
-  device: Device
-  currentPrice: ConsumptionPrice
-  bestPrice: ConsumptionPrice
-  bestTime: LowestConsumptionPrice
+  device?: Device
+  currentPrice?: ConsumptionPrice
+  bestPrice?: ConsumptionPrice
+  bestTime?: LowestConsumptionPrice | null
+  currentPricePerKw?: number
+  lowestPrice?: number
 }
 
 const PriceSection: React.FC<PriceSectionProps> = ({
   device,
   bestPrice,
   currentPrice,
-  bestTime
+  bestTime,
+  currentPricePerKw,
+  lowestPrice
 }) => {
+  console.log("currentPricePerKw", currentPricePerKw)
   return (
     <div className={styles.priceSection}>
-      <div className={styles.priceSection__box}>
-        <div>if you start now: </div>
-        <div className={styles.priceSection__box__price}>
-          {(
-            currentPrice &&
-            device &&
-            currentPrice?.amount * device?.consumption
-          )?.toFixed(2)}
-          <span>dkk</span>
+      {currentPrice ? (
+        <div className={styles.priceSection__box}>
+          <div>if you start now: </div>
+          <div className={styles.priceSection__box__price}>
+            {(
+              currentPrice &&
+              device &&
+              currentPrice?.amount * device?.consumption
+            )?.toFixed(2)}
+            <span>dkk</span>
+          </div>
+          <div>price for {currentPrice?.consumptionHours} hours</div>
         </div>
-        <div>price for {currentPrice?.consumptionHours} hours</div>
-      </div>
-      {bestTime?.startingTime && bestTime?.startingTime !== 0 ? (
+      ) : (
+        currentPricePerKw && (
+          <div className={styles.priceSection__box}>
+            <div>Current price </div>
+            <div className={styles.priceSection__box__price}>
+              {currentPricePerKw.toFixed(2)}
+              <span>dkk</span>
+            </div>
+            <div>per kW</div>
+          </div>
+        )
+      )}
+      {device && bestTime?.startingTime && bestTime?.startingTime !== 0 ? (
         <div className={styles.priceSection__box}>
           <div>
             Best time to start:{" "}
@@ -47,12 +65,11 @@ const PriceSection: React.FC<PriceSectionProps> = ({
             <span>dkk</span>
           </div>
           <div>price for {bestPrice?.consumptionHours} hours</div>
-          {currentPrice?.amount && bestPrice?.amount && (
+          {currentPrice?.amount && bestPrice?.amount && device && (
             <>
               <div className={styles.priceSection__box__difference}>
                 {Math.round(
-                  ((currentPrice?.amount * device?.consumption -
-                    bestPrice?.amount * device?.consumption) /
+                  ((currentPrice?.amount - bestPrice?.amount) /
                     currentPrice?.amount) *
                     100
                 )}
@@ -71,6 +88,19 @@ const PriceSection: React.FC<PriceSectionProps> = ({
         </div>
       ) : (
         <></>
+        // lowestPrice && (
+        //   <div className={styles.priceSection__box}>
+        //     <div>Lowest price </div>
+        //     <div className={styles.priceSection__box__price}>
+        //       {lowestPrice.toFixed(2)}
+        //       <span>dkk</span>
+        //     </div>
+        //     <div>per kW</div>
+        //     <div className={styles.priceSection__box__difference}>
+        //       starting at 7:00
+        //     </div>
+        //   </div>
+        // )
       )}
     </div>
   )
