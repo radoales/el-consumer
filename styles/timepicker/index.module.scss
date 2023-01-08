@@ -1,7 +1,7 @@
 @use "../variables/" as *;
 
 .timePicker {
-  width: 88vw;
+  width: 98%;
   padding-left: 60px;
   @media (max-width: 768px) {
     width: 96vw;

@@ -19,6 +19,7 @@ const DeviceSelection: React.FC<DeviceSelectionProps> = ({
 
   return (
     <div className={styles.deviceSelection}>
+      <div className={styles.deviceSelection__label}>Select a device</div>
       <Select
         dropdownMatchSelectWidth={true}
         placeholder='Select a device'

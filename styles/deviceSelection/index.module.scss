@@ -1,6 +1,13 @@
 @use "../variables/" as *;
 
 .deviceSelection {
+  @include flex(center, column, 5px);
+
+  &__label {
+    @include flex(center, row);
+    font-weight: 500;
+    font-size: 20px;
+  }
   &__select {
     :global(.ant-select-selector) {
       border-color: $color-green !important ;

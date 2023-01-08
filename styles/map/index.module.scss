@@ -1,13 +1,21 @@
 @use "../variables/" as *;
 
 .map {
-  @include flex(center, row);
-  width: 100%;
-  &__region {
-    &.hover:hover {
-      cursor: pointer;
-      svg {
-        fill: $color-green;
+  @include flex(center, column, 5px);
+  &__label {
+    @include flex(center, row);
+    font-weight: 500;
+    font-size: 20px;
+  }
+  &__inner {
+    @include flex(center, row);
+    width: 100%;
+    &__region {
+      &.hover:hover {
+        cursor: pointer;
+        svg {
+          fill: $color-green;
+        }
       }
     }
   }
