@@ -37,6 +37,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
   >()
   const [avoidNightHours, setAvoidNightHours] = useState(false)
   const [includeTomorrow, setincludeTomorrow] = useState(true)
+  const [lowestprice, setLowestprice] = useState<HourPrice>()
 
   useEffect(() => {
     if (device) {
@@ -89,6 +90,13 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         )
         setBestTime(bestTime)
       }
+
+      const dataCopy = [...data]
+
+      const buff = dataCopy
+        .filter((item) => item.time_start >= NOW)
+        .sort((a, b) => a.DKK_per_kWh - b.DKK_per_kWh)[0]
+      setLowestprice(buff)
     }
   }, [avoidNightHours, data, device, includeTomorrow, usageHours])
 
@@ -102,7 +110,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         currentPricePerKw={
           data.find((item) => item.time_start === NOW)?.DKK_per_kWh
         }
-        lowestPrice={2}
+        lowestPrice={lowestprice}
       />
       <DeviceSelection handleSelectDevice={handleSelectDevice} />
       <CalculatorSettings

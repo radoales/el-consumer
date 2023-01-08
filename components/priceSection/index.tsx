@@ -1,7 +1,11 @@
 import React from "react"
 import styles from "../../styles/pricesection/index.module.scss"
 import { Device } from "../../types/device"
-import { ConsumptionPrice, LowestConsumptionPrice } from "../../types/price"
+import {
+  ConsumptionPrice,
+  HourPrice,
+  LowestConsumptionPrice
+} from "../../types/price"
 
 interface PriceSectionProps {
   device?: Device
@@ -9,7 +13,7 @@ interface PriceSectionProps {
   bestPrice?: ConsumptionPrice
   bestTime?: LowestConsumptionPrice | null
   currentPricePerKw?: number
-  lowestPrice?: number
+  lowestPrice?: HourPrice
 }
 
 const PriceSection: React.FC<PriceSectionProps> = ({
@@ -53,7 +57,7 @@ const PriceSection: React.FC<PriceSectionProps> = ({
             Best time to start:{" "}
             {bestTime?.startingTime < 24
               ? `${bestTime?.startingTime}h.`
-              : `${bestTime?.startingTime - 24}h. tomorrow`}
+              : `${bestTime?.startingTime - 24}:00h. tomorrow`}
           </div>
           <div className={styles.priceSection__box__price}>
             {(
@@ -86,20 +90,22 @@ const PriceSection: React.FC<PriceSectionProps> = ({
           )}
         </div>
       ) : (
-        <></>
-        // lowestPrice && (
-        //   <div className={styles.priceSection__box}>
-        //     <div>Lowest price </div>
-        //     <div className={styles.priceSection__box__price}>
-        //       {lowestPrice.toFixed(2)}
-        //       <span>dkk</span>
-        //     </div>
-        //     <div>per kW</div>
-        //     <div className={styles.priceSection__box__difference}>
-        //       starting at 7:00
-        //     </div>
-        //   </div>
-        // )
+        lowestPrice && (
+          <div className={styles.priceSection__box}>
+            <div>Lowest upcoming price </div>
+            <div className={styles.priceSection__box__price}>
+              {lowestPrice.DKK_per_kWh.toFixed(2)}
+              <span>dkk</span>
+            </div>
+            <div>per kW</div>
+            <div className={styles.priceSection__box__difference}>
+              at{" "}
+              {lowestPrice?.time_start < 24
+                ? `${lowestPrice?.time_start}h.`
+                : `${lowestPrice?.time_start - 24}:00h. tomorrow`}
+            </div>
+          </div>
+        )
       )}
     </div>
   )
