@@ -5,6 +5,7 @@ import Dishwasher from "../assets/icons/dishwasher.svg"
 import Kitchen from "../assets/icons/kitchen.svg"
 import Bathroom from "../assets/icons/bathroom.svg"
 import Refrigerator from "../assets/icons/refrigerator.svg"
+import { NOW } from "./constants"
 
 export enum DeviceCategory {
   KITCHEN = "kitchen",
@@ -66,8 +67,8 @@ export const DEVICES = [
   {
     id: 6,
     name: "Refrigerator",
-    consumption: 0.3,
-    averageUsageHours: 24,
+    consumption: 0.15,
+    averageUsageHours: 24 - NOW,
     category: DeviceCategory.KITCHEN,
     icon: <Refrigerator width={40} height={40} fill='#000' />
   }

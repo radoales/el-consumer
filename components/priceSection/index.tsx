@@ -20,7 +20,6 @@ const PriceSection: React.FC<PriceSectionProps> = ({
   currentPricePerKw,
   lowestPrice
 }) => {
-  console.log("currentPricePerKw", currentPricePerKw)
   return (
     <div className={styles.priceSection}>
       {currentPrice ? (

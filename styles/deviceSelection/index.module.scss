@@ -1,0 +1,32 @@
+@use "../variables/" as *;
+
+.deviceSelection {
+  &__select {
+    :global(.ant-select-selector) {
+      border-color: $color-green !important ;
+    }
+    :global(.ant-select-selection-item) {
+      font-size: 20px;
+    }
+    min-width: 200px;
+    &__option {
+      @include flex(flex-start, row, 5px);
+
+      .info {
+        @include flex(flex-start, column);
+        &__name {
+        }
+        &__consumption {
+          font-size: 10px;
+          font-weight: 400;
+          color: $color-gray;
+        }
+      }
+    }
+    &__label {
+      @include flex(flex-start, row, 5px);
+      font-size: 16px;
+      align-items: center;
+    }
+  }
+}

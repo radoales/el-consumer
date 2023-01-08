@@ -13,9 +13,10 @@ import { getBestTime } from "../../../utils/calculations"
 import TimePicker from "../timePicker"
 import PriceSection from "../../priceSection"
 import CalculatorSettings from "../../calculatorSetting"
-import { DEVICES } from "../../../utils/deviceslist"
+import { DeviceCategory, DEVICES } from "../../../utils/deviceslist"
 import { Device } from "../../../types/device"
 import { SliderRangeProps } from "antd/es/slider"
+import DeviceSelection from "../../deviceSelection"
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -103,35 +104,13 @@ const PriceCalculator: React.FC<PriceCalculator> = ({ data }) => {
         }
         lowestPrice={2}
       />
-
+      <DeviceSelection handleSelectDevice={handleSelectDevice} />
       <CalculatorSettings
         avoidNightHours={avoidNightHours}
         setAvoidNightHours={setAvoidNightHours}
         includeTomorrow={includeTomorrow}
         setincludeTomorrow={setincludeTomorrow}
       />
-      <div className={styles.priceCalculator__devices}>
-        <Select
-          dropdownMatchSelectWidth={false}
-          placeholder='Select a device'
-          onChange={handleSelectDevice}
-          className={styles.priceCalculator__devices__select}
-          size='large'
-          filterOption={(input, option) =>
-            (option?.label?.toString() ?? "").toLowerCase().includes(input)
-          }
-        >
-          {DEVICES.map((device, index) => (
-            <Select.Option key={index} label={device.name} value={device.id}>
-              <div className={styles.priceCalculator__devices__select__option}>
-                {device.icon}
-                {device.name}
-              </div>
-            </Select.Option>
-          ))}
-        </Select>
-      </div>
-
       <TimePicker
         data={includeTomorrow ? data : data.slice(0, 24)}
         setSlider={setSlider}

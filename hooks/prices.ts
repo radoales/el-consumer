@@ -25,14 +25,14 @@ export const useGetPrices = (region: string) => {
               return {
                 ...item,
                 time_start: new Date(item.time_start).getHours(),
-                DKK_per_kWh: Math.abs(item.DKK_per_kWh) * 4
+                DKK_per_kWh: Math.abs(item.DKK_per_kWh) * 3
               }
             }),
             ...tomorowPrices.map((item) => {
               return {
                 ...item,
                 time_start: new Date(item.time_start).getHours() + 24,
-                DKK_per_kWh: Math.abs(item.DKK_per_kWh) * 4
+                DKK_per_kWh: Math.abs(item.DKK_per_kWh) * 3
               }
             })
           ]
@@ -40,7 +40,7 @@ export const useGetPrices = (region: string) => {
             return {
               ...item,
               time_start: new Date(item.time_start).getHours(),
-              DKK_per_kWh: Math.abs(item.DKK_per_kWh) * 4
+              DKK_per_kWh: Math.abs(item.DKK_per_kWh) * 3
             }
           })
 
