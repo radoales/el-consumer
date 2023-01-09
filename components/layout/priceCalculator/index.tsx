@@ -17,6 +17,8 @@ import { Device } from "../../../types/device"
 import { SliderRangeProps } from "antd/es/slider"
 import DeviceSelection from "../../deviceSelection"
 import Denmark from "../map"
+import { Col, Grid, Row } from "antd"
+const { useBreakpoint } = Grid
 
 interface PriceCalculator {
   data: HourPrice[]
@@ -44,6 +46,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
   const [avoidNightHours, setAvoidNightHours] = useState(false)
   const [includeTomorrow, setincludeTomorrow] = useState(true)
   const [lowestprice, setLowestprice] = useState<HourPrice>()
+  const screen = useBreakpoint()
 
   useEffect(() => {
     if (device) {
@@ -107,41 +110,85 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
   }, [avoidNightHours, data, device, includeTomorrow, usageHours])
 
   return (
-    <div className={styles.priceCalculator}>
-      <div className={styles.priceCalculator__settings}>
-        <Denmark
-          selectedRegion={region}
-          onChange={(value) => setRegion(value)}
-        />
-        <DeviceSelection handleSelectDevice={handleSelectDevice} />
-        <CalculatorSettings
-          avoidNightHours={avoidNightHours}
-          setAvoidNightHours={setAvoidNightHours}
-          includeTomorrow={includeTomorrow}
-          setincludeTomorrow={setincludeTomorrow}
-        />
-      </div>
-      <div className={styles.priceCalculator__dataView}>
-        <PriceSection
-          bestPrice={bestPrice}
-          currentPrice={currentPrice}
-          bestTime={bestTime}
-          device={device}
-          currentPricePerKw={
-            data.find((item) => item.time_start === NOW)?.DKK_per_kWh
-          }
-          lowestPrice={lowestprice}
-        />
-        <TimePicker
-          data={includeTomorrow ? data : data.slice(0, 24)}
-          setSlider={setSlider}
-          slider={slider}
-        />
-        <div className={styles.priceCalculator__dataView__graph}>
-          {chartData && <ChartBar data={chartData} />}
-        </div>
-      </div>
-    </div>
+    <Row className={styles.priceCalculator}>
+      {screen.md ? (
+        <>
+          <Col md={8} lg={4}>
+            <div className={styles.priceCalculator__settings}>
+              <Denmark
+                selectedRegion={region}
+                onChange={(value) => setRegion(value)}
+              />
+              <DeviceSelection handleSelectDevice={handleSelectDevice} />
+              <CalculatorSettings
+                avoidNightHours={avoidNightHours}
+                setAvoidNightHours={setAvoidNightHours}
+                includeTomorrow={includeTomorrow}
+                setincludeTomorrow={setincludeTomorrow}
+              />
+            </div>
+          </Col>
+          <Col md={16} lg={20}>
+            <div className={styles.priceCalculator__dataView}>
+              <PriceSection
+                bestPrice={bestPrice}
+                currentPrice={currentPrice}
+                bestTime={bestTime}
+                device={device}
+                currentPricePerKw={
+                  data.find((item) => item.time_start === NOW)?.DKK_per_kWh
+                }
+                lowestPrice={lowestprice}
+              />
+              <TimePicker
+                data={includeTomorrow ? data : data.slice(0, 24)}
+                setSlider={setSlider}
+                slider={slider}
+              />
+              <div className={styles.priceCalculator__dataView__graph}>
+                {chartData && <ChartBar data={chartData} />}
+              </div>
+            </div>
+          </Col>
+        </>
+      ) : (
+        <Col span={24}>
+          <div className={styles.priceCalculator__settings}>
+            <Denmark
+              selectedRegion={region}
+              onChange={(value) => setRegion(value)}
+            />
+            <DeviceSelection handleSelectDevice={handleSelectDevice} />
+            <CalculatorSettings
+              avoidNightHours={avoidNightHours}
+              setAvoidNightHours={setAvoidNightHours}
+              includeTomorrow={includeTomorrow}
+              setincludeTomorrow={setincludeTomorrow}
+            />
+          </div>
+          <div className={styles.priceCalculator__dataView}>
+            <PriceSection
+              bestPrice={bestPrice}
+              currentPrice={currentPrice}
+              bestTime={bestTime}
+              device={device}
+              currentPricePerKw={
+                data.find((item) => item.time_start === NOW)?.DKK_per_kWh
+              }
+              lowestPrice={lowestprice}
+            />
+            <TimePicker
+              data={includeTomorrow ? data : data.slice(0, 24)}
+              setSlider={setSlider}
+              slider={slider}
+            />
+            <div className={styles.priceCalculator__dataView__graph}>
+              {chartData && <ChartBar data={chartData} />}
+            </div>
+          </div>
+        </Col>
+      )}
+    </Row>
   )
 }
 
