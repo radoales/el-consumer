@@ -20,7 +20,7 @@ const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
   const maxHeigth = Math.max(...prices)
   return (
     <ResponsiveContainer width='100%' height='100%'>
-      <BarChart width={500} height={300} data={data}>
+      <BarChart data={data}>
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='name' />
         <YAxis domain={[0, Math.ceil(maxHeigth)]} />

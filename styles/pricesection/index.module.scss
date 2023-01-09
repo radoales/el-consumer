@@ -6,7 +6,7 @@
   // padding-left: 60px;
   gap: 1rem;
   &__box {
-    height: 10rem;
+    min-height: 10rem;
     width: 15rem;
     @media (max-width: 576px) {
     }
