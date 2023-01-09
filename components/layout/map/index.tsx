@@ -1,52 +1,55 @@
 import DenmarkEast from "../../../public/dk-east.svg"
 import DenmarkVest from "../../../public/dk-vest.svg"
 import styles from "../../../styles/map/index.module.scss"
-import { REGIONS } from "../../../utils/constants"
+import { regionDenmark } from "../../../utils/constants"
 
 interface DenmarkProps {
-  selectedRegion?: REGIONS
-  onChange: (value: REGIONS) => void
+  selectedRegion?: regionDenmark
+  onChange: (value: regionDenmark) => void
   mapSize?: number
 }
 
 const Denmark: React.FC<DenmarkProps> = ({
-  selectedRegion = REGIONS.west,
+  selectedRegion = regionDenmark.WEST,
   onChange,
   mapSize = 150
 }) => {
   return (
     <div className={styles.map}>
-      <div
-        onClick={() => onChange(REGIONS.west)}
-        className={`${styles.map__region} ${
-          selectedRegion === REGIONS.east && styles.hover
-        }`}
-      >
-        <DenmarkVest
-          width={mapSize}
-          height={mapSize}
-          fill={
-            selectedRegion === REGIONS.west
-              ? styles.color_green
-              : styles.color_gray
-          }
-        />
-      </div>
-      <div
-        className={`${styles.map__region} ${
-          selectedRegion === REGIONS.west && styles.hover
-        }`}
-      >
-        <DenmarkEast
-          onClick={() => onChange(REGIONS.east)}
-          width={mapSize}
-          height={mapSize}
-          fill={
-            selectedRegion === REGIONS.east
-              ? styles.color_green
-              : styles.color_gray
-          }
-        />
+      <div className={styles.map__label}>Change region</div>
+      <div className={styles.map__inner}>
+        <div
+          onClick={() => onChange(regionDenmark.WEST)}
+          className={`${styles.map__inner__region} ${
+            selectedRegion === regionDenmark.EAST && styles.hover
+          }`}
+        >
+          <DenmarkVest
+            width={mapSize}
+            height={mapSize}
+            fill={
+              selectedRegion === regionDenmark.WEST
+                ? styles.color_green
+                : styles.color_gray
+            }
+          />
+        </div>
+        <div
+          className={`${styles.map__inner__region} ${
+            selectedRegion === regionDenmark.WEST && styles.hover
+          }`}
+        >
+          <DenmarkEast
+            onClick={() => onChange(regionDenmark.EAST)}
+            width={mapSize}
+            height={mapSize}
+            fill={
+              selectedRegion === regionDenmark.EAST
+                ? styles.color_green
+                : styles.color_gray
+            }
+          />
+        </div>
       </div>
     </div>
   )

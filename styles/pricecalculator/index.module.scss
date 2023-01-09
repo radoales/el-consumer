@@ -1,18 +1,26 @@
 @use "../variables/" as *;
 
 .priceCalculator {
-  @include flex(center, column);
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem;
-  &__graph {
-    width: 90vw;
-    height: 30vh;
-    @media (max-width: 768px) {
-      width: 100vw;
-      padding-right: 2rem;
+  width: 100%;
+  max-width: 1440px;
+  @include flex(center, row);
+  &__settings {
+    width: 100%;
+    @include flex(flex-start, column, 2rem);
+    align-items: center;
+  }
+  &__dataView {
+    @include flex(center, column);
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 0;
+    &__graph {
+      width: 100%;
+      height: 35vh;
+      margin-left: -60px;
     }
   }
+
   &__devices {
     @include flex(center, row, 1rem);
     align-items: center;

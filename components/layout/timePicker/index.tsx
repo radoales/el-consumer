@@ -16,7 +16,7 @@ const TimePicker: React.FC<TimePickerProps> = ({ slider, setSlider, data }) => {
   const screen = useBreakpoint()
   const marks: SliderMarks = {}
   for (let i = 0; i < data.length; i++) {
-    if (!screen.xl && i % 2 !== 0) {
+    if (!screen.xxl && i % 2 !== 0) {
       continue
     }
     marks[i] = {

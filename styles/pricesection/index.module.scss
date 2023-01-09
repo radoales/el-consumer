@@ -1,11 +1,15 @@
 @use "../variables/" as *;
 
 .priceSection {
-  @include flex(flex-start, row);
+  @include flex(center, row);
+  flex-wrap: wrap;
+  // padding-left: 60px;
   gap: 1rem;
   &__box {
-    min-height: 27vh;
-    min-width: 20vw;
+    min-height: 10rem;
+    width: 15rem;
+    @media (max-width: 576px) {
+    }
     @include flex(flex-start, column);
     align-items: center;
     background-color: $color-green;

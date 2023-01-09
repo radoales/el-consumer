@@ -1,14 +1,21 @@
 @use "../variables/" as *;
 
 .deviceSelection {
+  @include flex(center, column, 5px);
+
+  &__label {
+    @include flex(center, row);
+    font-weight: 500;
+    font-size: 20px;
+  }
   &__select {
     :global(.ant-select-selector) {
       border-color: $color-green !important ;
     }
     :global(.ant-select-selection-item) {
-      font-size: 20px;
+      font-size: 18px;
     }
-    min-width: 200px;
+    min-width: 220px;
     &__option {
       @include flex(flex-start, row, 5px);
 

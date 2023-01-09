@@ -1,7 +1,7 @@
 @use "../variables/" as *;
 
 .calculatorSettings {
-  @include flex(flex-start, row);
+  @include flex(flex-start, column);
 
   gap: 2rem;
   &__box {

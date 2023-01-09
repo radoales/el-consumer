@@ -19,13 +19,13 @@ const DeviceSelection: React.FC<DeviceSelectionProps> = ({
 
   return (
     <div className={styles.deviceSelection}>
+      <div className={styles.deviceSelection__label}>Select a device</div>
       <Select
-        dropdownMatchSelectWidth={false}
+        dropdownMatchSelectWidth={true}
         placeholder='Select a device'
         onChange={handleSelectDevice}
         className={styles.deviceSelection__select}
         size='large'
-        showSearch
         filterOption={(input, option: any) =>
           (option?.title?.toString() ?? "").toLowerCase().includes(input)
         }
