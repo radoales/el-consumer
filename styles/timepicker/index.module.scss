@@ -1,12 +1,7 @@
 @use "../variables/" as *;
 
 .timePicker {
-  width: 98%;
-  padding-left: 60px;
-  // @media (max-width: 768px) {
-  //   width: 96vw;
-  //   padding-right: 2rem;
-  // }
+  width: 93%;
   :global(.ant-slider .ant-slider-handle::after) {
     box-shadow: 0 0 0 5px $color-green;
   }

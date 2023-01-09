@@ -113,7 +113,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
     <Row className={styles.priceCalculator}>
       {screen.md ? (
         <>
-          <Col md={8} lg={4}>
+          <Col lg={6}>
             <div className={styles.priceCalculator__settings}>
               <Denmark
                 selectedRegion={region}
@@ -128,7 +128,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
               />
             </div>
           </Col>
-          <Col md={16} lg={20}>
+          <Col lg={18}>
             <div className={styles.priceCalculator__dataView}>
               <PriceSection
                 bestPrice={bestPrice}
