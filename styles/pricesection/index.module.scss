@@ -3,7 +3,6 @@
 .priceSection {
   @include flex(center, row);
   flex-wrap: wrap;
-  // padding-left: 60px;
   gap: 1rem;
   &__box {
     min-height: 10rem;
