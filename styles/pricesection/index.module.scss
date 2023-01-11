@@ -6,7 +6,7 @@
   gap: 1rem;
   &__box {
     min-height: 10rem;
-    width: 15rem;
+    width: 17rem;
     @media (max-width: 576px) {
     }
     @include flex(flex-start, column);
@@ -24,7 +24,6 @@
     &__price {
       font-weight: 600;
       font-size: 60px;
-      // min-height: 5vh;
       span {
         font-size: 15px;
       }
