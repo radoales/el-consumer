@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      {dataEast?.length && dataWest?.length && (
+      {/* {dataEast?.length && dataWest?.length && (
         <div className={styles.home__calc}>
           <PriceCalculator
             data={storedValue === regionDenmark.EAST ? dataEast : dataWest}
@@ -30,7 +30,7 @@ export default function Home() {
             setRegion={setRegion}
           />
         </div>
-      )}
+      )} */}
     </div>
   )
 }
