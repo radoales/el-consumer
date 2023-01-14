@@ -17,13 +17,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.png' />
       </Head>
-      {/* <Layout.Header>
+      <Layout.Header>
         <Header />
-      </Layout.Header> */}
+      </Layout.Header>
       <Layout.Content>{children}</Layout.Content>
-      {/* <Layout.Footer>
+      <Layout.Footer>
         <Footer />
-      </Layout.Footer> */}
+      </Layout.Footer>
     </Layout>
   )
 }
