@@ -4,6 +4,7 @@ import PriceCalculator from "../components/layout/priceCalculator"
 import { useEffect, useState } from "react"
 import { regionDenmark } from "../utils/constants"
 import { localStorageKeys, useLocalStorage } from "../hooks/localStorage"
+import { NextSeo } from "next-seo"
 
 export default function Home() {
   const [region, setRegion] = useState<regionDenmark>()
@@ -22,6 +23,22 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
+      <NextSeo
+        title={"El-consumer"}
+        description={"Check lowest price for electricity"}
+        openGraph={{
+          images: [
+            {
+              url: "/logo.svg",
+              alt: "el-consumer",
+              type: "image/svg"
+            }
+          ],
+          siteName: "el-consumer.vercel.app",
+          title: "El-consumer",
+          description: `Check lowest price for electricity`
+        }}
+      />
       {dataEast?.length && dataWest?.length && (
         <div className={styles.home__calc}>
           <PriceCalculator
