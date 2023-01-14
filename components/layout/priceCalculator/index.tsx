@@ -111,43 +111,83 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
 
   return (
     <Row className={styles.priceCalculator}>
-      <Col lg={6}>
-        <div className={styles.priceCalculator__settings}>
-          {/* <Denmark
-            selectedRegion={region}
-            onChange={(value) => setRegion(value)}
-          /> */}
-          <DeviceSelection handleSelectDevice={handleSelectDevice} />
-          <CalculatorSettings
-            avoidNightHours={avoidNightHours}
-            setAvoidNightHours={setAvoidNightHours}
-            includeTomorrow={includeTomorrow}
-            setincludeTomorrow={setincludeTomorrow}
-          />
-        </div>
-      </Col>
-      <Col lg={18}>
-        <div className={styles.priceCalculator__dataView}>
-          {/* <PriceSection
-            bestPrice={bestPrice}
-            currentPrice={currentPrice}
-            bestTime={bestTime}
-            device={device}
-            currentPricePerKw={
-              data.find((item) => item.time_start === NOW)?.DKK_per_kWh
-            }
-            lowestPrice={lowestprice}
-          />
-          <TimePicker
-            data={includeTomorrow ? data : data.slice(0, 24)}
-            setSlider={setSlider}
-            slider={slider}
-          />
-          <div className={styles.priceCalculator__dataView__graph}>
-            {chartData && <ChartBar data={chartData} />}
-          </div> */}
-        </div>
-      </Col>
+      {screen.md ? (
+        <>
+          <Col lg={6}>
+            <div className={styles.priceCalculator__settings}>
+              <Denmark
+                selectedRegion={region}
+                onChange={(value) => setRegion(value)}
+              />
+              <DeviceSelection handleSelectDevice={handleSelectDevice} />
+              <CalculatorSettings
+                avoidNightHours={avoidNightHours}
+                setAvoidNightHours={setAvoidNightHours}
+                includeTomorrow={includeTomorrow}
+                setincludeTomorrow={setincludeTomorrow}
+              />
+            </div>
+          </Col>
+          <Col lg={18}>
+            <div className={styles.priceCalculator__dataView}>
+              <PriceSection
+                bestPrice={bestPrice}
+                currentPrice={currentPrice}
+                bestTime={bestTime}
+                device={device}
+                currentPricePerKw={
+                  data.find((item) => item.time_start === NOW)?.DKK_per_kWh
+                }
+                lowestPrice={lowestprice}
+              />
+              <TimePicker
+                data={includeTomorrow ? data : data.slice(0, 24)}
+                setSlider={setSlider}
+                slider={slider}
+              />
+              <div className={styles.priceCalculator__dataView__graph}>
+                {chartData && <ChartBar data={chartData} />}
+              </div>
+            </div>
+          </Col>
+        </>
+      ) : (
+        <Col span={24}>
+          <div className={styles.priceCalculator__settings}>
+            <Denmark
+              selectedRegion={region}
+              onChange={(value) => setRegion(value)}
+            />
+            <DeviceSelection handleSelectDevice={handleSelectDevice} />
+            <CalculatorSettings
+              avoidNightHours={avoidNightHours}
+              setAvoidNightHours={setAvoidNightHours}
+              includeTomorrow={includeTomorrow}
+              setincludeTomorrow={setincludeTomorrow}
+            />
+          </div>
+          <div className={styles.priceCalculator__dataView}>
+            <PriceSection
+              bestPrice={bestPrice}
+              currentPrice={currentPrice}
+              bestTime={bestTime}
+              device={device}
+              currentPricePerKw={
+                data.find((item) => item.time_start === NOW)?.DKK_per_kWh
+              }
+              lowestPrice={lowestprice}
+            />
+            <TimePicker
+              data={includeTomorrow ? data : data.slice(0, 24)}
+              setSlider={setSlider}
+              slider={slider}
+            />
+            <div className={styles.priceCalculator__dataView__graph}>
+              {chartData && <ChartBar data={chartData} />}
+            </div>
+          </div>
+        </Col>
+      )}
     </Row>
   )
 }
