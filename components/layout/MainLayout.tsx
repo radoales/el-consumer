@@ -21,9 +21,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <Header />
       </Layout.Header> */}
       <Layout.Content>{children}</Layout.Content>
-      {/* <Layout.Footer>
+      <Layout.Footer>
         <Footer />
-      </Layout.Footer> */}
+      </Layout.Footer>
     </Layout>
   )
 }
