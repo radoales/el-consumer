@@ -1,7 +1,6 @@
 import { Layout } from "antd"
 import Head from "next/head"
 import styles from "../../styles/layout/mainlayout.module.scss"
-import Footer from "./Footer"
 import Header from "./Header"
 
 interface MainLayoutProps {
@@ -21,9 +20,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <Header />
       </Layout.Header>
       <Layout.Content>{children}</Layout.Content>
-      <Layout.Footer>
-        <Footer />
-      </Layout.Footer>
     </Layout>
   )
 }
