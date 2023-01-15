@@ -1,7 +1,7 @@
-import DenmarkEast from "../../../public/dk-east.svg"
-import DenmarkVest from "../../../public/dk-vest.svg"
-import styles from "../../../styles/map/index.module.scss"
-import { regionDenmark } from "../../../utils/constants"
+import DenmarkEast from "../../public/dk-east.svg"
+import DenmarkVest from "../../public/dk-vest.svg"
+import styles from "../../styles/map/index.module.scss"
+import { regionDenmark } from "../../utils/constants"
 
 interface DenmarkProps {
   selectedRegion?: regionDenmark

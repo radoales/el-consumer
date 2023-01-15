@@ -1,6 +1,6 @@
 import { useGetPrices } from "../hooks/prices"
 import styles from "../styles/home/index.module.scss"
-import PriceCalculator from "../components/layout/priceCalculator"
+import PriceCalculator from "../components/priceCalculator"
 import { useEffect, useState } from "react"
 import { regionDenmark } from "../utils/constants"
 import { localStorageKeys, useLocalStorage } from "../hooks/localStorage"

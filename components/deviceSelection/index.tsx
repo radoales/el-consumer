@@ -2,13 +2,16 @@ import { Select } from "antd"
 import { DEVICES, DEVICE_CATEGORIES } from "../../utils/deviceslist"
 import styles from "../../styles/deviceSelection/index.module.scss"
 import { capitalize } from "../../utils/text"
+import { Device } from "../../types/device"
 
 interface DeviceSelectionProps {
   handleSelectDevice: (id: number) => void
+  selectedDeviceId?: number
 }
 
 const DeviceSelection: React.FC<DeviceSelectionProps> = ({
-  handleSelectDevice
+  handleSelectDevice,
+  selectedDeviceId
 }) => {
   const options = DEVICE_CATEGORIES.map((category) => {
     return {
@@ -21,15 +24,14 @@ const DeviceSelection: React.FC<DeviceSelectionProps> = ({
     <div className={styles.deviceSelection}>
       <div className={styles.deviceSelection__label}>Select a device</div>
       <Select
-        virtual={false}
         aria-label='Select a device'
         aria-labelledby='Select a device'
         dropdownMatchSelectWidth={true}
         placeholder='Select a device'
         onChange={handleSelectDevice}
+        value={selectedDeviceId}
         className={styles.deviceSelection__select}
         size='large'
-        showSearch
         filterOption={(input, option: any) =>
           (option?.title?.toString() ?? "").toLowerCase().includes(input)
         }

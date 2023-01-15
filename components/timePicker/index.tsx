@@ -1,8 +1,8 @@
 import { Grid, Slider } from "antd"
 import { SliderMarks, SliderRangeProps } from "antd/es/slider"
-import styles from "../../../styles/timepicker/index.module.scss"
-import { HourPrice } from "../../../types/price"
-import { NOW } from "../../../utils/constants"
+import styles from "../../styles/timepicker/index.module.scss"
+import { HourPrice } from "../../types/price"
+import { NOW } from "../../utils/constants"
 
 const { useBreakpoint } = Grid
 

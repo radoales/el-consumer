@@ -1,21 +1,21 @@
 import { useCallback, useEffect, useState } from "react"
-import { NOW, regionDenmark } from "../../../utils/constants"
-import { getPriceForTimeWindow } from "../../../utils/helpers"
-import styles from "../../../styles/pricecalculator/index.module.scss"
+import { NOW, regionDenmark } from "../../utils/constants"
+import { getPriceForTimeWindow } from "../../utils/helpers"
+import styles from "../../styles/pricecalculator/index.module.scss"
 import {
   ConsumptionPrice,
   HourPrice,
   LowestConsumptionPrice
-} from "../../../types/price"
+} from "../../types/price"
 import ChartBar from "../charts/ChartBar"
-import { getBestTime } from "../../../utils/calculations"
+import { getBestTime } from "../../utils/calculations"
 import TimePicker from "../timePicker"
-import PriceSection from "../../priceSection"
-import CalculatorSettings from "../../calculatorSetting"
-import { DEVICES } from "../../../utils/deviceslist"
-import { Device } from "../../../types/device"
+import PriceSection from "../priceSection"
+import CalculatorSettings from "../calculatorSetting"
+import { DEVICES } from "../../utils/deviceslist"
+import { Device } from "../../types/device"
 import { SliderRangeProps } from "antd/es/slider"
-import DeviceSelection from "../../deviceSelection"
+import DeviceSelection from "../deviceSelection"
 import Denmark from "../map"
 import { Col, Grid, Row } from "antd"
 const { useBreakpoint } = Grid
@@ -119,7 +119,10 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
                 selectedRegion={region}
                 onChange={(value) => setRegion(value)}
               />
-              <DeviceSelection handleSelectDevice={handleSelectDevice} />
+              <DeviceSelection
+                selectedDeviceId={device?.id}
+                handleSelectDevice={handleSelectDevice}
+              />
               <CalculatorSettings
                 avoidNightHours={avoidNightHours}
                 setAvoidNightHours={setAvoidNightHours}

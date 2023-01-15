@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   Cell
 } from "recharts"
-import styles from "../../../styles/pricecalculator/index.module.scss"
+import styles from "../../styles/pricecalculator/index.module.scss"
 const { useBreakpoint } = Grid
 
 interface ChartBarprops {
