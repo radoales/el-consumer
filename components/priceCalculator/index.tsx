@@ -1,23 +1,23 @@
-import { useCallback, useEffect, useState } from "react"
-import { NOW, regionDenmark } from "../../utils/constants"
-import { getPriceForTimeWindow } from "../../utils/helpers"
-import styles from "../../styles/pricecalculator/index.module.scss"
+import { useCallback, useEffect, useState } from 'react'
+import { NOW, regionDenmark } from '../../utils/constants'
+import { getPriceForTimeWindow } from '../../utils/helpers'
+import styles from '../../styles/pricecalculator/index.module.scss'
 import {
   ConsumptionPrice,
   HourPrice,
   LowestConsumptionPrice
-} from "../../types/price"
-import ChartBar from "../charts/ChartBar"
-import { getBestTime } from "../../utils/calculations"
-import TimePicker from "../timePicker"
-import PriceSection from "../priceSection"
-import CalculatorSettings from "../calculatorSetting"
-import { DEVICES } from "../../utils/deviceslist"
-import { Device } from "../../types/device"
-import { SliderRangeProps } from "antd/es/slider"
-import DeviceSelection from "../deviceSelection"
-import Denmark from "../map"
-import { Col, Grid, Row } from "antd"
+} from '../../types/price'
+import ChartBar from '../charts/ChartBar'
+import { getBestTime } from '../../utils/calculations'
+import TimePicker from '../timePicker'
+import PriceSection from '../priceSection'
+import CalculatorSettings from '../calculatorSetting'
+import { DEVICES } from '../../utils/deviceslist'
+import { Device } from '../../types/device'
+import { SliderRangeProps } from 'antd/es/slider'
+import DeviceSelection from '../deviceSelection'
+import Denmark from '../map'
+import { Col, Grid, Row } from 'antd'
 const { useBreakpoint } = Grid
 
 interface PriceCalculator {
@@ -33,7 +33,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
 }) => {
   const [currentPrice, setCurrentPrice] = useState<ConsumptionPrice>()
   const [bestPrice, setBestPrice] = useState<ConsumptionPrice>()
-  const [slider, setSlider] = useState<SliderRangeProps["value"]>([
+  const [slider, setSlider] = useState<SliderRangeProps['value']>([
     NOW,
     NOW + 2
   ])
@@ -169,7 +169,7 @@ const PriceCalculator: React.FC<PriceCalculator> = ({
               setincludeTomorrow={setincludeTomorrow}
             />
           </div>
-          <div className={styles.priceCalculator__dataView}>
+          <div className={`${styles.priceCalculator__dataView}`}>
             <PriceSection
               bestPrice={bestPrice}
               currentPrice={currentPrice}

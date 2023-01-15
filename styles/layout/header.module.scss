@@ -1,12 +1,33 @@
-@use "./../variables/" as *;
+@use './../variables/' as *;
 
 .header {
-  @include flex(flex-start, row);
+  @include flex(space-between, row);
+  height: 100%;
   align-items: center;
   padding-left: 1rem;
   background-color: $color-green;
   color: $color-white;
+  @media (min-width: 991px) {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
   :global(.ant-menu) {
     background-color: $color-green;
+  }
+
+  &__menuIcon {
+    @include flex(center, row);
+    &.rotate {
+      transition: transform 0.2s;
+      transform: rotate(90deg);
+    }
+  }
+
+  &__mobile {
+    background-color: $color-green;
+    &__menu {
+      background-color: $color-green;
+    }
   }
 }
