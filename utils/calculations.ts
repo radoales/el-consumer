@@ -49,7 +49,7 @@ export const getBestTime = (
 }
 
 export const getPriceColor = (currentPrice: number, bestPrice: number) => {
-  return currentPrice >= bestPrice && currentPrice / 2 <= bestPrice
+  return currentPrice > bestPrice && currentPrice / 2 <= bestPrice
     ? 'yellow'
     : currentPrice / 2 >= bestPrice
     ? 'orange'
