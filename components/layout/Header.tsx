@@ -5,7 +5,7 @@ import Navbar from "./Navbar"
 const Header = () => {
   return (
     <div className={styles.header}>
-      <Image src={"/logo.svg"} width={50} height={50} alt={"logo"} />
+      <Image priority src={"/logo.svg"} width={50} height={50} alt={"logo"} />
       <Navbar />
     </div>
   )
