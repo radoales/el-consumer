@@ -21,11 +21,15 @@ const DeviceSelection: React.FC<DeviceSelectionProps> = ({
     <div className={styles.deviceSelection}>
       <div className={styles.deviceSelection__label}>Select a device</div>
       <Select
+        virtual={false}
+        aria-label='Select a device'
+        aria-labelledby='Select a device'
         dropdownMatchSelectWidth={true}
         placeholder='Select a device'
         onChange={handleSelectDevice}
         className={styles.deviceSelection__select}
         size='large'
+        showSearch
         filterOption={(input, option: any) =>
           (option?.title?.toString() ?? "").toLowerCase().includes(input)
         }

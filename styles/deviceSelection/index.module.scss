@@ -15,7 +15,7 @@
     :global(.ant-select-selection-item) {
       font-size: 18px;
     }
-    min-width: 220px;
+    min-width: 200px;
     &__option {
       @include flex(flex-start, row, 5px);
 
