@@ -51,6 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, setIsCollapsed }) => {
       </div>
 
       <Drawer
+        mask={false}
         onClose={() => setIsCollapsed(true)}
         open={!isCollapsed}
         closable={false}
