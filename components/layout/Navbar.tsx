@@ -55,7 +55,7 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, setIsCollapsed }) => {
         open={!isCollapsed}
         closable={false}
         placement='top'
-        height={'30vh'}
+        height={'25vh'}
         rootClassName={styles.mobileDrawer}
       >
         <>

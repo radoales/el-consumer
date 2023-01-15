@@ -25,7 +25,7 @@ body {
 }
 
 .ant-drawer {
-  top: 4rem;
+  top: 10vh;
 }
 
 .ant-layout-header {
@@ -44,5 +44,7 @@ body {
 }
 
 .ant-layout .ant-layout-header .ant-menu {
-  gap: 0.5rem;
+  @media (min-width: 991px) {
+    gap: 0.5rem;
+  }
 }
