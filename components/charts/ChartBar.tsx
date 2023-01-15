@@ -1,4 +1,3 @@
-import { Grid } from "antd"
 import React from "react"
 import {
   BarChart,
@@ -11,14 +10,12 @@ import {
   Cell
 } from "recharts"
 import styles from "../../styles/pricecalculator/index.module.scss"
-const { useBreakpoint } = Grid
 
 interface ChartBarprops {
   data: { name: string; price: number }[]
 }
 
 const ChartBar: React.FC<ChartBarprops> = ({ data }) => {
-  const screen = useBreakpoint()
   const prices = data.map((item) => Number(item.price))
   const maxHeigth = Math.max(...prices)
   return (
