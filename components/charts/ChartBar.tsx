@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {
   BarChart,
   Bar,
@@ -8,8 +8,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell
-} from "recharts"
-import styles from "../../styles/pricecalculator/index.module.scss"
+} from 'recharts'
+import styles from '../../styles/pricecalculator/index.module.scss'
 
 interface ChartBarprops {
   data: { name: string; price: number }[]
