@@ -1,4 +1,4 @@
-@use "../variables/" as *;
+@use '../variables/' as *;
 
 .priceSection {
   @include flex(center, row);
@@ -27,6 +27,15 @@
       span {
         font-size: 15px;
       }
+    }
+    &.orange {
+      background-color: $color-orange;
+    }
+    &.yellow {
+      background-color: $color-yellow;
+    }
+    &.green {
+      background-color: $color-green;
     }
   }
 }

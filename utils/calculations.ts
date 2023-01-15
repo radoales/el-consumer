@@ -1,4 +1,4 @@
-import { LowestConsumptionPrice } from "../types/price"
+import { LowestConsumptionPrice } from '../types/price'
 
 export const getBestTime = (
   prices: {
@@ -46,4 +46,12 @@ export const getBestTime = (
     startingTime: startIndex,
     consumptionHours: usageHours
   }
+}
+
+export const getPriceColor = (currentPrice: number, bestPrice: number) => {
+  return currentPrice >= bestPrice && currentPrice / 2 <= bestPrice
+    ? 'yellow'
+    : currentPrice / 2 >= bestPrice
+    ? 'orange'
+    : 'green'
 }
