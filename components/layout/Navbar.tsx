@@ -51,13 +51,18 @@ const Navbar: React.FC<NavbarProps> = ({ isCollapsed, setIsCollapsed }) => {
       </div>
 
       <Drawer
-        mask={false}
+        mask={true}
         onClose={() => setIsCollapsed(true)}
         open={!isCollapsed}
         closable={false}
         placement='top'
-        height={'25vh'}
+        height={'30vh'}
         rootClassName={styles.mobileDrawer}
+        title={
+          <Link href={'/'} onClick={() => setIsCollapsed(true)}>
+            <Image alt='logo' width={40} height={40} src='/logo.svg' />
+          </Link>
+        }
       >
         <>
           <div className={`${styles.header__mobile}`}>
