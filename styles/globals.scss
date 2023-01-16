@@ -29,17 +29,9 @@ body {
 }
 
 .ant-layout-header {
-  @media (max-width: 990px) {
-    z-index: 1001;
-    position: fixed;
-    width: 100%;
-  }
-}
-
-.ant-layout-content {
-  @media (max-width: 990px) {
-    top: 64px;
-  }
+  z-index: 1001;
+  position: fixed;
+  width: 100%;
 }
 
 .ant-menu-item {
