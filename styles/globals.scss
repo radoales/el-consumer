@@ -1,4 +1,4 @@
-@use "./variables/" as *;
+@use './variables/' as *;
 
 * {
   padding: 0;
@@ -14,4 +14,47 @@ body {
 .ant-layout .ant-layout-footer,
 .ant-layout .ant-layout-header {
   padding: 0;
+}
+
+.ant-drawer .ant-drawer-wrapper-body {
+  background-color: $color-green;
+}
+
+.ant-drawer .ant-drawer-header {
+  padding: 0.5rem 1rem;
+}
+
+.ant-drawer {
+  top: 64px;
+}
+
+.ant-layout-header {
+  @media (max-width: 990px) {
+    z-index: 1001;
+    position: fixed;
+    width: 100%;
+  }
+}
+
+.ant-layout-content {
+  @media (max-width: 990px) {
+    top: 64px;
+  }
+}
+
+.ant-menu-item {
+  padding: 0 !important;
+}
+.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border: none;
+}
+
+.ant-menu-light .ant-menu-item-selected {
+  background-color: transparent;
+}
+
+.ant-layout .ant-layout-header .ant-menu {
+  @media (min-width: 991px) {
+    gap: 0.5rem;
+  }
 }
